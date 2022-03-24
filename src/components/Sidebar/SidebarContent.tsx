@@ -22,8 +22,8 @@ interface LinkItemProps {
 }
 const LinkItems: LinkItemProps[] = [
     { name: 'Home', icon: FiHome, path: '/' },
-    { name: 'User', icon: FiUser, path: 'user' },
-    { name: 'Tasks', icon: FiArchive, path: 'tasks' },
+    { name: 'Usuários', icon: FiUser, path: 'user' },
+    { name: 'Tarefas', icon: FiArchive, path: 'tasks' },
 ];
 
 interface SidebarProps extends BoxProps {
@@ -34,9 +34,9 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     return (
         <Box
             transition="3s ease"
-            bg={useColorModeValue('white', 'gray.900')}
+            bg={useColorModeValue('#2E2E30', 'gray.900')}
             borderRight="1px"
-            borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+            borderRightColor={useColorModeValue('gray.700', 'gray.700')}
             w={{ base: 'full', md: 60 }}
             pos="fixed"
             h="full"

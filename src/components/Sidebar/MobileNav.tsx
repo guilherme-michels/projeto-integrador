@@ -34,9 +34,9 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             px={{ base: 4, md: 4 }}
             height="20"
             alignItems="center"
-            bg={useColorModeValue('white', 'gray.900')}
+            bg={useColorModeValue('#2E2E30', 'gray.900')}
             borderBottomWidth="1px"
-            borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
+            borderBottomColor={useColorModeValue('gray.700', 'gray.700')}
             justifyContent={{ base: 'space-between', md: 'flex-end' }}
             {...rest}>
             <IconButton
@@ -61,6 +61,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                     variant="ghost"
                     aria-label="open menu"
                     icon={<FiBell />}
+                    style={{ background: "#DF6064" }}
                 />
                 <Flex alignItems={'center'}>
                     <Menu>
@@ -74,8 +75,8 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                                     alignItems="flex-start"
                                     spacing="1px"
                                     ml="2">
-                                    <Text fontSize="sm">Justina Clark</Text>
-                                    <Text fontSize="xs" color="gray.600">
+                                    <Text fontSize="sm">Guilherme Michels</Text>
+                                    <Text fontSize="xs" color="#DF6064">
                                         Admin
                                     </Text>
                                 </VStack>
@@ -85,13 +86,12 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                             </HStack>
                         </MenuButton>
                         <MenuList
-                            bg={useColorModeValue('white', 'gray.900')}
+                            bg={useColorModeValue('#1E1F21', 'gray.900')}
                             borderColor={useColorModeValue('gray.200', 'gray.700')}>
-                            <MenuItem>Profile</MenuItem>
-                            <MenuItem>Settings</MenuItem>
-                            <MenuItem>Billing</MenuItem>
+                            <MenuItem style={{ color: "#DF6064", fontWeight: "bold" }}>Conta</MenuItem>
+                            <MenuItem style={{ color: "#DF6064", fontWeight: "bold" }}>Configurações</MenuItem>
                             <MenuDivider />
-                            <MenuItem>Sign out</MenuItem>
+                            <MenuItem style={{ color: "#DF6064", fontWeight: "bold" }}>Desconectar</MenuItem>
                         </MenuList>
                     </Menu>
                 </Flex>

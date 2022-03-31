@@ -1,0 +1,15 @@
+{
+  "type": "mysql",
+  "host": "localhost",
+  "port": 3306,
+  "username": "root",
+  "password": "",
+  "database": "salve",
+  "migrations": ["./src/database/migrations/**.{js,ts}"],
+  "seeds": ["./src/database/seeders/**.{js,ts}"],
+  "entities": ["./src/database/models/**.{js,ts}"],
+  "logging": true,
+  "cli": {
+    "migrationsDir": "./src/database/migrations"
+  }
+}

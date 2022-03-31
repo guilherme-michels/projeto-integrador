@@ -1,0 +1,5 @@
+node_modules
+logs
+
+src/config/.env.development
+src/config/.env.production

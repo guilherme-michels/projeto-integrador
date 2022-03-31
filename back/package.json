@@ -1,0 +1,44 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "env-cmd -f src/config/.env.development ts-node-dev src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src/**/*.ts",
+    "format": "eslint src/**/*.ts --fix",
+    "migration:run": "ts-node node_modules/typeorm/cli.js migration:run",
+    "migration:rollback": "ts-node node_modules/typeorm/cli.js migration:revert",
+    "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "env-cmd": "^10.1.0",
+    "prettier": "^2.5.1",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "@wa/log": "^1.8.5",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.2",
+    "celebrate": "^15.0.1",
+    "cors": "^2.8.5",
+    "eslint": "^8.11.0",
+    "express": "^4.17.3",
+    "http-status": "^1.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "typeorm": "^0.2.45",
+    "uuid": "^8.3.2"
+  }
+}

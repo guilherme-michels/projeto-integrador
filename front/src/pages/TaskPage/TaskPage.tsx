@@ -1,8 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import { Scrollbar } from "react-scrollbars-custom";
 import { ModalTask } from "../../components/TaskComponents/ModalTask/ModalTask";
+import { TaskTable } from "./TaskTable/TaskTable";
+import { Task } from "./TaskInterface";
+import { useToast } from "@chakra-ui/react";
+import { deleteTask, getTasks } from "../../api/Task/task.service";
 
 const Column = styled.div`
     width: 25%;
@@ -17,216 +21,72 @@ const Title = styled.strong`
 margin-bottom: 5%;
 `;
 
-const TaskBody = styled.div`
-cursor: pointer;
-padding: 10px;
-display: flex;
-width: 100%;
-`;
-
-const TaskItem = styled.button`
-display: flex;
-justify-content: center;
-border-radius: 8px;
-background: #DF6064;
-width: 100%;
-min-height: 80px;
-cursor: pointer;
-border: 1px solid #ffcdce;
-margin: 20px 0px 0px;
-
-&:hover {
-background: #b34c4f;
-}
-`;
 
 export function TaskPage() {
+    const [tasks, setTasks] = useState<Task[]>([])
+    const navigate = useNavigate()
+    const toast = useToast()
+
+    const fetchTasks = () => {
+        getTasks().then(data => setTasks(data.taskList))
+    }
+
+    useEffect(() => {
+        fetchTasks();
+    }, [])
+
+    const onEditTask = (task: Task) => {
+        navigate(`/editar-task/${task.id}`)
+    }
+
+    const onDeleteTask = async (task: Task) => {
+        try {
+            await deleteTask(task)
+            toast({
+                position: 'top-right',
+                description: "Tarefa deletada com sucesso!",
+                status: 'success',
+                duration: 4000,
+                isClosable: true,
+            })
+            fetchTasks()
+        } catch (err) {
+            toast({
+                position: 'top-right',
+                description: 'Falha em excluir usuário!',
+                status: 'error',
+                duration: 4000,
+                isClosable: true,
+            })
+        }
+    }
+
+
     const [isModalVisible, setIsModalVisible] = useState(false);
     return <div>
         <div style={{ display: "flex", marginTop: "20px" }}>
             <Column>
                 <Title>Fazer</Title>
                 <Scrollbar style={{ width: "100%", height: "100%" }}>
-                    <TaskItem onClick={() => setIsModalVisible(true)}>
-                        <TaskBody>
-                            <div style={{ display: "flex", flexDirection: "column", width: "100%", }}>
-                                <span style={{ marginBottom: "10px" }}>Ajustar modal de pessoas</span>
-                                <hr
-                                    style={{
-                                        width: "100%",
-                                    }}
-                                />
-                                <span style={{ fontSize: "14px", marginTop: "10px" }}>Ajustar modal de pessoas na tela de cadastro de pessoas</span>
-                            </div>
-                        </TaskBody>
-                    </TaskItem>
-
-                    <TaskItem onClick={() => setIsModalVisible(true)}>
-                        <TaskBody>
-                            <div style={{ display: "flex", flexDirection: "column", width: "100%", }}>
-                                <span style={{ marginBottom: "10px" }}>Ajustar modal de pessoas</span>
-                                <hr
-                                    style={{
-                                        width: "100%",
-                                    }}
-                                />
-                                <span style={{ fontSize: "14px", marginTop: "10px" }}>Ajustar modal de pessoas na tela de cadastro de pessoas</span>
-                            </div>
-                        </TaskBody>
-                    </TaskItem>
-
-                    <TaskItem onClick={() => setIsModalVisible(true)}>
-                        <TaskBody>
-                            <div style={{ display: "flex", flexDirection: "column", width: "100%", }}>
-                                <span style={{ marginBottom: "10px" }}>Ajustar modal de pessoas</span>
-                                <hr
-                                    style={{
-                                        width: "100%",
-                                    }}
-                                />
-                                <span style={{ fontSize: "14px", marginTop: "10px" }}>Ajustar modal de pessoas na tela de cadastro de pessoas</span>
-                            </div>
-                        </TaskBody>
-                    </TaskItem>
-
-                    <TaskItem onClick={() => setIsModalVisible(true)}>
-                        <TaskBody>
-                            <div style={{ display: "flex", flexDirection: "column", width: "100%", }}>
-                                <span style={{ marginBottom: "10px" }}>Ajustar modal de pessoas</span>
-                                <hr
-                                    style={{
-                                        width: "100%",
-                                    }}
-                                />
-                                <span style={{ fontSize: "14px", marginTop: "10px" }}>Ajustar modal de pessoas na tela de cadastro de pessoas</span>
-                            </div>
-                        </TaskBody>
-                    </TaskItem>
-
-                    <TaskItem onClick={() => setIsModalVisible(true)}>
-                        <TaskBody>
-                            <div style={{ display: "flex", flexDirection: "column", width: "100%", }}>
-                                <span style={{ marginBottom: "10px" }}>Ajustar modal de pessoas</span>
-                                <hr
-                                    style={{
-                                        width: "100%",
-                                    }}
-                                />
-                                <span style={{ fontSize: "14px", marginTop: "10px" }}>Ajustar modal de pessoas na tela de cadastro de pessoas</span>
-                            </div>
-                        </TaskBody>
-                    </TaskItem>
-
-                    <TaskItem onClick={() => setIsModalVisible(true)}>
-                        <TaskBody>
-                            <div style={{ display: "flex", flexDirection: "column", width: "100%", }}>
-                                <span style={{ marginBottom: "10px" }}>Ajustar modal de pessoas</span>
-                                <hr
-                                    style={{
-                                        width: "100%",
-                                    }}
-                                />
-                                <span style={{ fontSize: "14px", marginTop: "10px" }}>Ajustar modal de pessoas na tela de cadastro de pessoas</span>
-                            </div>
-                        </TaskBody>
-                    </TaskItem>
-
-                    <TaskItem onClick={() => setIsModalVisible(true)}>
-                        <TaskBody>
-                            <div style={{ display: "flex", flexDirection: "column", width: "100%", }}>
-                                <span style={{ marginBottom: "10px" }}>Ajustar modal de pessoas</span>
-                                <hr
-                                    style={{
-                                        width: "100%",
-                                    }}
-                                />
-                                <span style={{ fontSize: "14px", marginTop: "10px" }}>Ajustar modal de pessoas na tela de cadastro de pessoas</span>
-                            </div>
-                        </TaskBody>
-                    </TaskItem>
-
-                    <TaskItem onClick={() => setIsModalVisible(true)}>
-                        <TaskBody>
-                            <div style={{ display: "flex", flexDirection: "column", width: "100%", }}>
-                                <span style={{ marginBottom: "10px" }}>Ajustar modal de pessoas</span>
-                                <hr
-                                    style={{
-                                        width: "100%",
-                                    }}
-                                />
-                                <span style={{ fontSize: "14px", marginTop: "10px" }}>Ajustar modal de pessoas na tela de cadastro de pessoas</span>
-                            </div>
-                        </TaskBody>
-                    </TaskItem>
+                    <TaskTable onDelete={onDeleteTask} onEdit={onEditTask} tasks={tasks} />
                 </Scrollbar>
                 {isModalVisible ? <ModalTask onCloseModal={() => setIsModalVisible(false)} /> : null}
             </Column>
             <Column>
                 <Title>Andamento</Title>
                 <Scrollbar style={{ width: "100%", height: "100%" }}>
-                    <TaskItem onClick={() => setIsModalVisible(true)}>
-                        <TaskBody>
-                            <div style={{ display: "flex", flexDirection: "column", width: "100%", }}>
-                                <span style={{ marginBottom: "10px" }}>Ajustar modal de pessoas</span>
-                                <hr
-                                    style={{
-                                        width: "100%",
-                                    }}
-                                />
-                                <span style={{ fontSize: "14px", marginTop: "10px" }}>Ajustar modal de pessoas na tela de cadastro de pessoas</span>
-                            </div>
-                        </TaskBody>
-                    </TaskItem>
+
                 </Scrollbar>
             </Column>
             <Column>
                 <Title>Em revisão</Title>
                 <Scrollbar style={{ width: "100%", height: "100%" }}>
-                    <TaskItem onClick={() => setIsModalVisible(true)}>
-                        <TaskBody>
-                            <div style={{ display: "flex", flexDirection: "column", width: "100%", }}>
-                                <span style={{ marginBottom: "10px" }}>Ajustar modal de pessoas</span>
-                                <hr
-                                    style={{
-                                        width: "100%",
-                                    }}
-                                />
-                                <span style={{ fontSize: "14px", marginTop: "10px" }}>Ajustar modal de pessoas na tela de cadastro de pessoas</span>
-                            </div>
-                        </TaskBody>
-                    </TaskItem>
 
-                    <TaskItem onClick={() => setIsModalVisible(true)}>
-                        <TaskBody>
-                            <div style={{ display: "flex", flexDirection: "column", width: "100%", }}>
-                                <span style={{ marginBottom: "10px" }}>Ajustar modal de pessoas</span>
-                                <hr
-                                    style={{
-                                        width: "100%",
-                                    }}
-                                />
-                                <span style={{ fontSize: "14px", marginTop: "10px" }}>Ajustar modal de pessoas na tela de cadastro de pessoas</span>
-                            </div>
-                        </TaskBody>
-                    </TaskItem>
                 </Scrollbar>
             </Column>
             <Column>
                 <Title>Feito</Title>
                 <Scrollbar style={{ width: "100%", height: "100%" }}>
-                    <TaskItem onClick={() => setIsModalVisible(true)}>
-                        <TaskBody>
-                            <div style={{ display: "flex", flexDirection: "column", width: "100%", }}>
-                                <span style={{ marginBottom: "10px" }}>Ajustar modal de pessoas</span>
-                                <hr
-                                    style={{
-                                        width: "100%",
-                                    }}
-                                />
-                                <span style={{ fontSize: "14px", marginTop: "10px" }}>Ajustar modal de pessoas na tela de cadastro de pessoas</span>
-                            </div>
-                        </TaskBody>
-                    </TaskItem>
                 </Scrollbar>
             </Column>
 

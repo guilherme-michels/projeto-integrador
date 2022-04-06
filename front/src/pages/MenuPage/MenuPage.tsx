@@ -35,7 +35,7 @@ export function MenuPage() {
                 </div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <div style={{ width: "50%", height: "200px", background: "#DF6064", padding: "10px", margin: "10px", borderRadius: "8px" }}>
-                        aaa
+                        Tasker, a sua organização!
                     </div>
                     <div style={{ width: "20%", height: "200px", background: "#DF6064", padding: "10px", margin: "10px", borderRadius: "8px" }}>
                         <strong>Listagens</strong>

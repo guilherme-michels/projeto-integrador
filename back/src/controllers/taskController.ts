@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
-import PersonService from '../services/person';
+import TaskService from '../services/task';
 
-class PersonController {
+class TaskController {
   index = async (request: Request, response: Response) => {
     try {
-      const personService = new PersonService();
-      const personList = await personService.showAll();
+      const taskService = new TaskService();
+      const taskList = await taskService.showAll();
 
       return response.status(200).json({
-        message: 'Lista de pessoas obtidas com sucesso.',
-        personList: personList,
+        message: 'Lista de tarefas obtidas com sucesso.',
+        taskList: taskList,
       });
     } catch (e) {
       return response.status(500).json({
@@ -20,14 +20,14 @@ class PersonController {
 
   store = async (request: Request, response: Response) => {
     try {
-      const { name, email, telefone, cargo } = request.body;
+      const { name, description, responsible } = request.body;
 
-      const personService = new PersonService();
-      const person = await personService.store(name, email, telefone, cargo);
+      const taskService = new TaskService();
+      const task = await taskService.store(name, description, responsible);
 
       return response.status(200).json({
-        message: 'Pessoa criada com sucesso.',
-        person: person,
+        message: 'Tarefa criada com sucesso.',
+        task: task,
       });
     } catch (e) {
       return response.status(500).json({
@@ -40,18 +40,18 @@ class PersonController {
     try {
       const { id } = request.params;
 
-      const personService = new PersonService();
-      const person = await personService.showPerson(id);
+      const taskService = new TaskService();
+      const task = await taskService.showTask(id);
 
-      if (!person) {
+      if (!task) {
         return response.status(404).json({
-          message: 'Pessoa não encontrada.',
+          message: 'Tarefa não encontrada.',
         });
       }
 
       return response.status(200).json({
-        message: 'Pessoa obtida com sucesso.',
-        person: person,
+        message: 'Tarefa obtida com sucesso.',
+        task: task,
       });
     } catch (e) {
       return response.status(500).json({
@@ -63,21 +63,21 @@ class PersonController {
   update = async (request: Request, response: Response) => {
     try {
       const { id } = request.params;
-      const { name, email, telefone, cargo } = request.body;
+      const { name, description, responsible } = request.body;
 
-      const personService = new PersonService();
+      const taskService = new TaskService();
 
-      const person = await personService.update(id, name, email, telefone, cargo);
+      const task = await taskService.update(id, name, description, responsible);
 
-      if (!person) {
+      if (!task) {
         return response.status(404).json({
-          message: 'Pessoa não encontrada.',
+          message: 'Tarefa não encontrada.',
         });
       }
 
       return response.status(200).json({
-        message: 'Pessoa atualizada com sucesso.',
-        person: person,
+        message: 'Tarefa atualizada com sucesso.',
+        task: task,
       });
     } catch (e) {
       return response.status(500).json({
@@ -90,11 +90,11 @@ class PersonController {
     try {
       const { id } = request.params;
 
-      const personService = new PersonService();
-      await personService.destroy(id);
+      const taskService = new TaskService();
+      await taskService.destroy(id);
 
       return response.status(200).json({
-        message: 'Pessoa removida com sucesso.',
+        message: 'Tarefa removida com sucesso.',
       });
     } catch (e) {
       return response.status(500).json({
@@ -104,4 +104,4 @@ class PersonController {
   };
 }
 
-export default PersonController;
+export default TaskController;

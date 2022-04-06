@@ -6,6 +6,7 @@ import {
     Input,
     Button,
     Select,
+    useToast,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { userSchema } from './userSchema'
@@ -22,11 +23,28 @@ export function AddUser() {
     })
 
     const navigate = useNavigate()
+    const toast = useToast()
 
-    function onSubmit(values: any) {
-        console.log(values)
-        addUser(values)
-        navigate("/user")
+    async function onSubmit(values: any) {
+        try {
+            const { message } = await addUser(values)
+            toast({
+                position: 'top-right',
+                description: message,
+                status: 'success',
+                duration: 4000,
+                isClosable: true,
+            })
+            navigate("/user")
+        } catch (err) {
+            toast({
+                position: 'top-right',
+                description: 'Falha na criação da tarefa',
+                status: 'error',
+                duration: 4000,
+                isClosable: true,
+            })
+        }
     }
 
     return (
@@ -64,6 +82,7 @@ export function AddUser() {
                     <Input
                         id='telefone'
                         type='number'
+                        maxLength={11}
                         placeholder='Insira o telefone'
                         {...register("telefone")}
                     />

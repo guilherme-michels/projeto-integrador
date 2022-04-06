@@ -3,4 +3,5 @@ export interface User {
     email: string;
     telefone: number;
     cargo: string;
+    id?: string;
 }

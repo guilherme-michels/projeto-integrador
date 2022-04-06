@@ -27,10 +27,10 @@ class PersonService {
 
     if (!existPerson) {
       person = personRepository.create({
-        cargo,
-        email,
         name,
+        email,
         telefone,
+        cargo,
       });
 
       await personRepository.save(person);
@@ -50,7 +50,7 @@ class PersonService {
       where: {
         id,
       },
-      select: ['id', 'name', 'telefone', 'email', 'cargo'],
+      select: ['id', 'name', 'email', 'telefone', 'cargo'],
     });
 
     return person;
@@ -61,7 +61,7 @@ class PersonService {
 
     const person = await personRepository.findOne({
       where: { email },
-      select: ['id', 'name', 'telefone', 'email', 'cargo'],
+      select: ['id', 'name', 'email', 'telefone', 'cargo'],
     });
 
     return person;
@@ -78,16 +78,16 @@ class PersonService {
       person.name = name;
     }
 
+    if (email) {
+      person.email = email;
+    }
+
     if (telefone) {
       person.telefone = telefone;
     }
 
     if (cargo) {
       person.cargo = cargo;
-    }
-
-    if (email) {
-      person.email = email;
     }
 
     // if (password) {

@@ -17,4 +17,5 @@ export const userSchema = yup.object({
     .min(8, 'O número de telefone é inválido')
     .matches(phoneRegExp, 'O número de telefone é inválido'),
   cargo: yup.string().required('O cargo é obrigatório'),
+  password: yup.string().required('O cargo é obrigatório'),
 })

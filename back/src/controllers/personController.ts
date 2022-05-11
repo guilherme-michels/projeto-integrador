@@ -20,10 +20,10 @@ class PersonController {
 
   store = async (request: Request, response: Response) => {
     try {
-      const { name, email, telefone, cargo } = request.body;
+      const { name, email, telefone, cargo, password } = request.body;
 
       const personService = new PersonService();
-      const person = await personService.store(name, email, telefone, cargo);
+      const person = await personService.store(name, email, telefone, cargo, password);
 
       return response.status(200).json({
         message: 'Pessoa criada com sucesso.',
@@ -63,11 +63,11 @@ class PersonController {
   update = async (request: Request, response: Response) => {
     try {
       const { id } = request.params;
-      const { name, email, telefone, cargo } = request.body;
+      const { name, email, telefone, cargo, password } = request.body;
 
       const personService = new PersonService();
 
-      const person = await personService.update(id, name, email, telefone, cargo);
+      const person = await personService.update(id, name, email, telefone, cargo, password);
 
       if (!person) {
         return response.status(404).json({

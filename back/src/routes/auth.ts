@@ -1,10 +1,12 @@
-// import express from 'express';
+import express from 'express';
 
-// import AuthController from '../controllers/authController';
-// const authController = new AuthController();
+import AuthController from '../controllers/authController';
+import Middleware from '../middleware';
+const authController = new AuthController();
 
-// const router = express.Router();
+const router = express.Router();
 
-// router.post('/login', authController.store);
+router.post('/login', authController.store);
+router.get('/persons/me', Middleware.validateToken, authController.show);
 
-// export { router as authRouter };
+export { router as authRouter };

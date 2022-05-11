@@ -1,8 +1,8 @@
-
 import { useToast } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { deleteUser, getUsers } from '../../api/User/user.service'
+import { SidebarHeaderTeamplate } from '../../templates/SidebarHeaderTeamplate'
 import { User } from './UserInterface'
 import { UserTable } from './UserTable/UserTable'
 
@@ -20,7 +20,7 @@ export function UserPage() {
     }, [])
 
     const onEditUser = (user: User) => {
-        navigate(`/editar-pessoa/${user.id}`)
+        navigate(`/tasker/editar-pessoa/${user.id}`)
     }
 
     const onDeleteUser = async (user: User) => {
@@ -45,11 +45,17 @@ export function UserPage() {
         }
     }
 
-    return <div>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <strong>Listagem de usuários</strong>
-            <Link to="/add-user" style={{ padding: "10px", background: "#DF6064", borderRadius: "8px" }}>Adicionar novo usuário</Link>
-        </div>
-        <UserTable onDelete={onDeleteUser} onEdit={onEditUser} users={users} />
-    </div >
+    return (
+        <SidebarHeaderTeamplate>
+            <div>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <strong>Listagem de usuários</strong>
+                    <Link to="/tasker/add-user" style={{ padding: "10px", background: "#DF6064", borderRadius: "8px" }}>Adicionar novo usuário</Link>
+                </div>
+                <UserTable onDelete={onDeleteUser} onEdit={onEditUser} users={users} />
+            </div >
+        </SidebarHeaderTeamplate>
+    )
 }
+
+

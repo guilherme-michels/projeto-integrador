@@ -7,6 +7,7 @@ import { TaskTable } from "./TaskTable/TaskTable";
 import { Task } from "./TaskInterface";
 import { useToast } from "@chakra-ui/react";
 import { deleteTask, getTasks } from "../../api/Task/task.service";
+import { SidebarHeaderTeamplate } from "../../templates/SidebarHeaderTeamplate";
 
 const Column = styled.div`
     width: 25%;
@@ -36,7 +37,7 @@ export function TaskPage() {
     }, [])
 
     const onEditTask = (task: Task) => {
-        navigate(`/editar-task/${task.id}`)
+        navigate(`/tasker/editar-task/${task.id}`)
     }
 
     const onDeleteTask = async (task: Task) => {
@@ -63,42 +64,46 @@ export function TaskPage() {
 
 
     const [isModalVisible, setIsModalVisible] = useState(false);
-    return <div>
-        <div style={{ display: "flex", marginTop: "20px" }}>
-            <Column>
-                <Title>Fazer</Title>
-                <Scrollbar style={{ width: "100%", height: "100%" }}>
-                    <TaskTable onDelete={onDeleteTask} onEdit={onEditTask} tasks={tasks} />
-                </Scrollbar>
-                {isModalVisible ? <ModalTask onCloseModal={() => setIsModalVisible(false)} /> : null}
-            </Column>
-            <Column>
-                <Title>Andamento</Title>
-                <Scrollbar style={{ width: "100%", height: "100%" }}>
+    return (
+        <SidebarHeaderTeamplate>
+            <div>
+                <div style={{ display: "flex", marginTop: "20px" }}>
+                    <Column>
+                        <Title>Fazer</Title>
+                        <Scrollbar style={{ width: "100%", height: "100%" }}>
+                            <TaskTable onDelete={onDeleteTask} onEdit={onEditTask} tasks={tasks} />
+                        </Scrollbar>
+                        {isModalVisible ? <ModalTask onCloseModal={() => setIsModalVisible(false)} /> : null}
+                    </Column>
+                    <Column>
+                        <Title>Andamento</Title>
+                        <Scrollbar style={{ width: "100%", height: "100%" }}>
 
-                </Scrollbar>
-            </Column>
-            <Column>
-                <Title>Em revisão</Title>
-                <Scrollbar style={{ width: "100%", height: "100%" }}>
+                        </Scrollbar>
+                    </Column>
+                    <Column>
+                        <Title>Em revisão</Title>
+                        <Scrollbar style={{ width: "100%", height: "100%" }}>
 
-                </Scrollbar>
-            </Column>
-            <Column>
-                <Title>Feito</Title>
-                <Scrollbar style={{ width: "100%", height: "100%" }}>
-                </Scrollbar>
-            </Column>
+                        </Scrollbar>
+                    </Column>
+                    <Column>
+                        <Title>Feito</Title>
+                        <Scrollbar style={{ width: "100%", height: "100%" }}>
+                        </Scrollbar>
+                    </Column>
 
-        </div >
-        <div style={{ display: "flex", flexDirection: "column" }}>
-            <hr
-                style={{
-                    width: "100%",
-                    marginBottom: "10px"
-                }}
-            />
-            <Link to="/add-task" style={{ padding: "10px", background: "#DF6064", borderRadius: "8px", width: "172px" }}>Adicionar nova tarefa</Link>
-        </div>
-    </div >
+                </div >
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                    <hr
+                        style={{
+                            width: "100%",
+                            marginBottom: "10px"
+                        }}
+                    />
+                    <Link to="/tasker/add-task" style={{ padding: "10px", background: "#DF6064", borderRadius: "8px", width: "172px" }}>Adicionar nova tarefa</Link>
+                </div>
+            </div >
+        </SidebarHeaderTeamplate>
+    )
 }

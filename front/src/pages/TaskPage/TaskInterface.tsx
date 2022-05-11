@@ -3,4 +3,5 @@ export interface Task {
     description: string;
     responsible: string;
     id?: string;
+    color: string;
 }

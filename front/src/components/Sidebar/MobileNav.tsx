@@ -22,12 +22,17 @@ import {
     FiBell,
     FiChevronDown,
 } from 'react-icons/fi';
+import { useAuth } from '../../context/AuthContext';
+// import { useAuth } from '../../context/AuthContext';
 
 interface MobileProps extends FlexProps {
     onOpen: () => void;
 }
 
+
 export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+    const { signOut, user } = useAuth()
+
     return (
         <Flex
             ml={{ base: 0, md: 60 }}
@@ -74,9 +79,11 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                                     alignItems="flex-start"
                                     spacing="1px"
                                     ml="2">
-                                    <Text fontSize="sm">Guilherme Michels</Text>
+                                    <Text fontSize="sm">
+                                        {user.name}
+                                    </Text>
                                     <Text fontSize="xs" color="#DF6064">
-                                        Admin
+                                        {user.cargo}
                                     </Text>
                                 </VStack>
                                 <Box display={{ base: 'none', md: 'flex' }}>
@@ -90,11 +97,11 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                             <MenuItem style={{ color: "#DF6064", fontWeight: "bold" }}>Conta</MenuItem>
                             <MenuItem style={{ color: "#DF6064", fontWeight: "bold" }}>Configurações</MenuItem>
                             <MenuDivider />
-                            <MenuItem style={{ color: "#DF6064", fontWeight: "bold" }}>Desconectar</MenuItem>
+                            <MenuItem style={{ color: "#DF6064", fontWeight: "bold" }} onClick={signOut} >Desconectar</MenuItem>
                         </MenuList>
                     </Menu>
                 </Flex>
-            </HStack>
-        </Flex>
+            </HStack >
+        </Flex >
     );
 };

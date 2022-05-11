@@ -18,6 +18,9 @@ class Person {
   @Column()
   cargo: string;
 
+  @Column()
+  password: string;
+
   constructor() {
     if (!this.id) {
       this.id = uuid();

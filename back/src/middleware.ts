@@ -18,7 +18,7 @@ class Middleware {
         if (error) {
           return response.status(401).json({
             success: false,
-            message: 'Autenticação inválida!'
+            message: 'Autenticação inválida!',
           });
         } else {
           if (user) {
@@ -27,7 +27,7 @@ class Middleware {
             if (person == null) {
               return response.status(401).json({
                 success: false,
-                message: 'Usuário inativo!'
+                message: 'Usuário inativo!',
               });
             }
           }
@@ -39,10 +39,10 @@ class Middleware {
     } else {
       return response.status(401).json({
         success: false,
-        message: 'Autenticação não realizada!'
+        message: 'Autenticação não realizada!',
       });
     }
-  }
+  };
 }
 
 export default Middleware;

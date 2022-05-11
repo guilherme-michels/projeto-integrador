@@ -6,13 +6,13 @@ class TaskService {
     const taskRepository = getCustomRepository(TaskRepository);
 
     const taskList = await taskRepository.find({
-      select: ['id', 'name', 'description', 'responsible'],
+      select: ['id', 'name', 'description', 'responsible', 'color'],
     });
 
     return taskList;
   };
 
-  store = async (name: string, description: string, responsible: string) => {
+  store = async (name: string, description: string, responsible: string, color: string) => {
     const taskRepository = getCustomRepository(TaskRepository);
 
     const existTask = await taskRepository.findOne({
@@ -28,6 +28,7 @@ class TaskService {
         name,
         description,
         responsible,
+        color,
       });
 
       await taskRepository.save(task);
@@ -45,13 +46,13 @@ class TaskService {
       where: {
         id,
       },
-      select: ['id', 'name', 'description', 'responsible'],
+      select: ['id', 'name', 'description', 'responsible', 'color'],
     });
 
     return task;
   };
 
-  update = async (id: string, name?: string, description?: string, responsible?: string) => {
+  update = async (id: string, name?: string, description?: string, responsible?: string, color?: string) => {
     const task = await this.showTask(id);
 
     if (!task) {
@@ -68,6 +69,10 @@ class TaskService {
 
     if (responsible) {
       task.responsible = responsible;
+    }
+
+    if (color) {
+      task.color = color;
     }
 
     const taskRepository = getCustomRepository(TaskRepository);

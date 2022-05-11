@@ -22,8 +22,8 @@ interface LinkItemProps {
 }
 const LinkItems: LinkItemProps[] = [
     { name: 'Home', icon: FiHome, path: '/' },
-    { name: 'Usuários', icon: FiUser, path: 'user' },
-    { name: 'Tarefas', icon: FiArchive, path: 'tasks' },
+    { name: 'Usuários', icon: FiUser, path: '/tasker/user' },
+    { name: 'Tarefas', icon: FiArchive, path: '/tasker/tasks' },
 ];
 
 interface SidebarProps extends BoxProps {

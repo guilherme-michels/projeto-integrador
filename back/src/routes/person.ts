@@ -17,6 +17,7 @@ router.post(
       email: Joi.string().required().email(),
       telefone: Joi.string().required().min(3),
       cargo: Joi.string().required().min(5),
+      password: Joi.string().required().min(5),
     }),
   }),
   personController.store,

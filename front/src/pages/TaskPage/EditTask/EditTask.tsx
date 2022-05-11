@@ -13,6 +13,7 @@ import { userSchema } from './userSchema'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { editTask, getTask } from '../../../api/Task/task.service'
 import { useEffect } from 'react'
+import { SidebarHeaderTeamplate } from '../../../templates/SidebarHeaderTeamplate'
 
 export function EditTask() {
     const {
@@ -38,7 +39,7 @@ export function EditTask() {
                 duration: 4000,
                 isClosable: true,
             })
-            navigate("/tasks")
+            navigate("/tasker/tasks")
         } catch (err) {
             toast({
                 position: 'top-right',
@@ -58,52 +59,55 @@ export function EditTask() {
         })
     }, [params])
 
+
+
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div>Editar tarefa</div>
-            <div style={{ display: "flex" }}>
-                <FormControl isInvalid={errors.name} style={{ padding: "10px 10px" }}>
-                    <FormLabel htmlFor='name'>Título</FormLabel>
-                    <Input
-                        id='name'
-                        placeholder='Insira o título'
-                        {...register("name")}
-                    />
-                    <FormErrorMessage>
-                        {errors.name && errors.name.message}
-                    </FormErrorMessage>
-                </FormControl>
+        <SidebarHeaderTeamplate>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div>Editar tarefa</div>
+                <div style={{ display: "flex" }}>
+                    <FormControl isInvalid={errors.name} style={{ padding: "10px 10px" }}>
+                        <FormLabel htmlFor='name'>Título</FormLabel>
+                        <Input
+                            id='name'
+                            placeholder='Insira o título'
+                            {...register("name")}
+                        />
+                        <FormErrorMessage>
+                            {errors.name && errors.name.message}
+                        </FormErrorMessage>
+                    </FormControl>
 
-                <FormControl isInvalid={errors.description} style={{ padding: "10px 10px" }}>
-                    <FormLabel htmlFor='description'>Descrição</FormLabel>
-                    <Textarea
-                        id='description'
-                        style={{ maxHeight: "200px", minHeight: "41px" }}
-                        placeholder='Insira a descrição'
-                        {...register("description")}
-                    />
-                    <FormErrorMessage>
-                        {errors.description && errors.description.message}
-                    </FormErrorMessage>
-                </FormControl>
-            </div>
+                    <FormControl isInvalid={errors.description} style={{ padding: "10px 10px" }}>
+                        <FormLabel htmlFor='description'>Descrição</FormLabel>
+                        <Textarea
+                            id='description'
+                            style={{ maxHeight: "200px", minHeight: "41px" }}
+                            placeholder='Insira a descrição'
+                            {...register("description")}
+                        />
+                        <FormErrorMessage>
+                            {errors.description && errors.description.message}
+                        </FormErrorMessage>
+                    </FormControl>
+                </div>
 
-            <div style={{ display: "flex" }}>
-                <FormControl isInvalid={errors.responsible} style={{ padding: "10px 10px" }}>
-                    <FormLabel htmlFor='responsible'>Responsável</FormLabel>
-                    <Input
-                        id='responsible'
-                        type='text'
-                        placeholder='Insira o responsável'
-                        {...register("responsible")}
-                    />
-                    <FormErrorMessage>
-                        {errors.description && errors.description.message}
-                    </FormErrorMessage>
-                </FormControl>
-            </div>
+                <div style={{ display: "flex" }}>
+                    <FormControl isInvalid={errors.responsible} style={{ padding: "10px 10px" }}>
+                        <FormLabel htmlFor='responsible'>Responsável</FormLabel>
+                        <Input
+                            id='responsible'
+                            type='text'
+                            placeholder='Insira o responsável'
+                            {...register("responsible")}
+                        />
+                        <FormErrorMessage>
+                            {errors.description && errors.description.message}
+                        </FormErrorMessage>
+                    </FormControl>
+                </div>
 
-            {/* <FormControl style={{ padding: "10px 10px" }}>
+                {/* <FormControl style={{ padding: "10px 10px" }}>
                 <FormLabel>Selecione uma cor</FormLabel>
                 <CirclePicker
                     color={color}
@@ -111,16 +115,17 @@ export function EditTask() {
                 />
             </FormControl> */}
 
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Link to="/tasks" >
-                    <Button mt={4} colorScheme='teal' type='submit' style={{ marginLeft: "10px", background: "#DF6064" }}>
-                        Cancelar
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <Link to="/tasker/tasks" >
+                        <Button mt={4} colorScheme='teal' type='submit' style={{ marginLeft: "10px", background: "#DF6064" }}>
+                            Cancelar
+                        </Button>
+                    </Link>
+                    <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit' style={{ marginLeft: "10px", background: "#DF6064" }}>
+                        Editar
                     </Button>
-                </Link>
-                <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit' style={{ marginLeft: "10px", background: "#DF6064" }}>
-                    Editar
-                </Button>
-            </div>
-        </form>
+                </div>
+            </form>
+        </SidebarHeaderTeamplate>
     )
 }

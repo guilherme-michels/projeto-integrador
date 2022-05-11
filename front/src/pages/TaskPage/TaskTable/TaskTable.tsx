@@ -21,7 +21,6 @@ const TaskItem = styled.button`
 display: flex;
 justify-content: center;
 border-radius: 8px;
-background: #DF6064;
 width: 100%;
 min-height: 80px;
 border: 1px solid #ffcdce;
@@ -33,8 +32,9 @@ export const TaskTable: React.FunctionComponent<TaskTableProps> = props => {
     return <div>
         {props.tasks.length > 0 ? (
             props.tasks.map(task => (
-                <TaskItem>
+                <TaskItem style={{ background: "#DF6064" }}>
                     <TaskBody>
+                        <div style={{ background: task.color, height: "20px", width: "20px", border: "1px solid #fff" }}></div>
                         <div style={{ display: "flex", flexDirection: "column", width: "100%", }}>
                             <span style={{ marginBottom: "10px" }}>{task.name}</span>
                             <span>Responsável: {task.responsible}</span>

@@ -16,6 +16,7 @@ router.post(
       name: Joi.string().required(),
       description: Joi.string(),
       responsible: Joi.string().required(),
+      color: Joi.string().required(),
     }),
   }),
   taskController.store,

@@ -23,6 +23,10 @@ export class Task1647470125233 implements MigrationInterface {
             name: 'responsible',
             type: 'varchar',
           },
+          {
+            name: 'color',
+            type: 'varchar',
+          },
         ],
       }),
     );

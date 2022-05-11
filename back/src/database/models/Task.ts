@@ -15,6 +15,9 @@ class Task {
   @Column()
   responsible: string;
 
+  @Column()
+  color: string;
+
   constructor() {
     if (!this.id) {
       this.id = uuid();

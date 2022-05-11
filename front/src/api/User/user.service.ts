@@ -32,3 +32,21 @@ export function deleteUser(user: User) {
     res => res.data
   )
 }
+export interface loginUser {
+  person: User
+  message: string
+  token: string
+}
+export interface validateUser {
+  username?: string
+  email?: string
+  password: string
+}
+
+export function validateLogin(user: validateUser) {
+  return Api.post<loginUser>('/login', user).then(res => res.data)
+}
+
+export function getUserMe() {
+  return Api.get<UserResponse>(`/persons/me`).then(res => res.data)
+}

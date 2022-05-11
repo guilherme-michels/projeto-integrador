@@ -1,5 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import { PersonRepository } from '../database/repositories/personRepository';
+import Utils from '../utils/encript';
+// import Utils from '../utils/encript';
 
 class PersonService {
   showAll = async () => {
@@ -12,7 +14,7 @@ class PersonService {
     return personList;
   };
 
-  store = async (name: string, email: string, telefone: string, cargo: string) => {
+  store = async (name: string, email: string, telefone: string, cargo: string, password: string) => {
     const personRepository = getCustomRepository(PersonRepository);
 
     const existPerson = await personRepository.findOne({
@@ -23,7 +25,7 @@ class PersonService {
 
     let person;
 
-    // const encriptedPassword: string = await Utils.encriptPassword(password);
+    const encriptedPassword: string = await Utils.encriptPassword(password);
 
     if (!existPerson) {
       person = personRepository.create({
@@ -31,11 +33,12 @@ class PersonService {
         email,
         telefone,
         cargo,
+        password: encriptedPassword,
       });
 
       await personRepository.save(person);
 
-      // delete person['password'];
+      delete person['password'];
     } else {
       person = existPerson;
     }
@@ -61,13 +64,13 @@ class PersonService {
 
     const person = await personRepository.findOne({
       where: { email },
-      select: ['id', 'name', 'email', 'telefone', 'cargo'],
+      select: ['id', 'name', 'email', 'telefone', 'cargo', 'password'],
     });
 
     return person;
   };
 
-  update = async (id: string, name?: string, email?: string, telefone?: string, cargo?: string) => {
+  update = async (id: string, name?: string, email?: string, telefone?: string, cargo?: string, password?: string) => {
     const person = await this.showPerson(id);
 
     if (!person) {
@@ -90,15 +93,15 @@ class PersonService {
       person.cargo = cargo;
     }
 
-    // if (password) {
-    //   const encriptedPassword: string = await Utils.encriptPassword(password);
-    //   person.password = encriptedPassword;
-    // }
+    if (password) {
+      const encriptedPassword: string = await Utils.encriptPassword(password);
+      person.password = encriptedPassword;
+    }
 
     const personRepository = getCustomRepository(PersonRepository);
     await personRepository.save(person);
 
-    // delete person['password'];
+    delete person['password'];
 
     return person;
   };

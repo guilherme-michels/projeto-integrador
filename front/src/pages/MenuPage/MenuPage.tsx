@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { SidebarHeaderTeamplate } from "../../templates/SidebarHeaderTeamplate";
 
 export function MenuPage() {
     const data = new Date().toLocaleTimeString('pt-BR', { hour: 'numeric', hour12: false });
@@ -26,32 +27,33 @@ export function MenuPage() {
     }, []);
 
     return (
-        <div style={{ width: "100%" }}>
-            <div>
-                <strong>Página inicial</strong>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                    <div style={{ fontSize: "20px" }}>{semana[dia.getDay()]}, {mes[dia.getMonth()]} de {dia.getDate()}</div>
-                    <div style={{ fontSize: "36px" }}>{mensagem}</div>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <div style={{ width: "50%", height: "200px", background: "#DF6064", padding: "10px", margin: "10px", borderRadius: "8px" }}>
-                        Tasker, a sua organização!
+        <SidebarHeaderTeamplate>
+            <div style={{ width: "100%" }}>
+                <div>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                        <div style={{ fontSize: "20px" }}>{semana[dia.getDay()]}, {mes[dia.getMonth()]} de {dia.getDate()}</div>
+                        <div style={{ fontSize: "36px" }}>{mensagem}</div>
                     </div>
-                    <div style={{ width: "20%", height: "200px", background: "#DF6064", padding: "10px", margin: "10px", borderRadius: "8px" }}>
-                        <strong>Listagens</strong>
-                        <hr
-                            style={{
-                                width: "100%",
-                            }}
-                        />
-                        <div style={{ marginTop: "10px", display: "flex", flexDirection: "column" }}>
-                            <Link to="/user">Listagem de pessoas </Link>
-                            <Link to="/tasks">Listagem de tarefas </Link>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <div style={{ width: "50%", height: "200px", background: "#DF6064", padding: "10px", margin: "10px", borderRadius: "8px" }}>
+                            Tasker, facilitando a sua organização!
+                        </div>
+                        <div style={{ width: "20%", height: "200px", background: "#DF6064", padding: "10px", margin: "10px", borderRadius: "8px" }}>
+                            <strong>Listagens</strong>
+                            <hr
+                                style={{
+                                    width: "100%",
+                                }}
+                            />
+                            <div style={{ marginTop: "10px", display: "flex", flexDirection: "column" }}>
+                                <Link to="/tasker/user">Listagem de pessoas </Link>
+                                <Link to="/tasker/tasks">Listagem de tarefas </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </SidebarHeaderTeamplate>
     );
 }
 

@@ -3,7 +3,10 @@ import React from "react"
 import { Task } from '../TaskInterface';
 import styled from "styled-components"
 import { MdModeEditOutline } from "react-icons/md"
-import { AiFillDelete } from "react-icons/ai"
+import { AiFillDelete, AiFillFilePdf } from "react-icons/ai"
+
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 interface TaskTableProps {
     tasks: Array<Task>;
@@ -28,6 +31,27 @@ margin: 20px 0px 0px;
 `;
 
 export const TaskTable: React.FunctionComponent<TaskTableProps> = props => {
+
+    function gerarPDF() {
+        (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+        pdfMake.createPdf({
+            pageSize: 'A4',
+            pageMargins: [20, 20, 20, 20],
+            content: [
+                {
+                    table: {
+                        headerRows: 1,
+                        body: [
+                            ['Nome', 'Responsável', 'Descrição'],
+                            ...props.tasks.map(task =>
+                                [task.name, task.responsible, task.description]
+                            )
+                        ]
+                    }
+                }
+            ]
+        }).download()
+    }
 
     return <div>
         {props.tasks.length > 0 ? (
@@ -56,5 +80,12 @@ export const TaskTable: React.FunctionComponent<TaskTableProps> = props => {
             <tr>
             </tr>
         )}
+        <button onClick={() => gerarPDF()} style={{ marginTop: "6px" }}>
+            <span style={{ display: "flex", background: "#DF6064", borderRadius: "4px", padding: "4px" }}>
+                Relatório <AiFillFilePdf size={24} style={{ marginLeft: "12px" }} />
+            </span>
+        </button>
     </div >
+
+
 }

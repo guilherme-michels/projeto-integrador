@@ -3,6 +3,7 @@ import { createContext, useCallback, useState, useContext, useEffect } from 'rea
 import { useNavigate } from 'react-router-dom';
 import { Api } from '../api';
 import { getUserMe, validateLogin } from '../api/User/user.service';
+import { SplashPage } from '../pages/SplashPage/SplashPage';
 
 const TOKEN = '@user/token';
 
@@ -35,6 +36,13 @@ const AuthProvider = ({ children }: any) => {
                 setToken(user);
                 setUser({ name: result.person.name, cargo: result.person.cargo })
 
+                const startTime = Date.now();
+
+                while ((Date.now() - startTime) < 4000) {
+                    setLoading(true)
+                }
+                setLoading(false)
+
                 toast({
                     position: 'top-right',
                     description: "Bem vindo(a) " + result.person.name,
@@ -55,12 +63,12 @@ const AuthProvider = ({ children }: any) => {
                 setError(error)
                 setUser(null)
 
-            } finally {
                 setLoading(false)
             }
         },
         [navigate, toast]
     );
+
 
     const signOut = useCallback(() => {
         localStorage.removeItem(TOKEN);
@@ -118,6 +126,8 @@ const AuthProvider = ({ children }: any) => {
             }}
         >
             {children}
+            {loading ? <SplashPage /> : null}
+
         </AuthContext.Provider>
     );
 };

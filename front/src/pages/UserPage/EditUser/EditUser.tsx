@@ -44,7 +44,7 @@ export function EditUser() {
                 duration: 4000,
                 isClosable: true,
             })
-            navigate("/user")
+            navigate("/tasker/user")
         } catch (err) {
             toast({
                 position: 'top-right',
@@ -125,7 +125,7 @@ export function EditUser() {
                     </FormControl>
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <Link to="/user" >
+                    <Link to="/tasker/user" >
                         <Button mt={4} colorScheme='teal' type='submit' style={{ marginLeft: "10px", background: "#DF6064" }}>
                             Cancelar
                         </Button>

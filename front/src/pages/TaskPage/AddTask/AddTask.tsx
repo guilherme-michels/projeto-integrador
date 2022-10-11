@@ -40,7 +40,7 @@ export function AddTask() {
                 duration: 4000,
                 isClosable: true,
             })
-            navigate("/tasks")
+            navigate("/tasker/tasks")
         } catch (err) {
             toast({
                 position: 'top-right',
@@ -101,6 +101,7 @@ export function AddTask() {
                 <FormControl style={{ padding: "10px 10px" }}>
                     <FormLabel htmlFor='responsible'>Selecione uma cor</FormLabel>
                     <Input
+                        style={{ border: "none" }}
                         id='color'
                         type='color'
                         {...register("color")}

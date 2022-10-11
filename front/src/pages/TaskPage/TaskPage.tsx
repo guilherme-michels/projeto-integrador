@@ -10,7 +10,7 @@ import { deleteTask, getTasks } from "../../api/Task/task.service";
 import { SidebarHeaderTeamplate } from "../../templates/SidebarHeaderTeamplate";
 
 const Column = styled.div`
-    width: 25%;
+    width: 30%;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -62,20 +62,20 @@ export function TaskPage() {
         }
     }
 
-
     const [isModalVisible, setIsModalVisible] = useState(false);
+
     return (
         <SidebarHeaderTeamplate>
             <div>
                 <div style={{ display: "flex", marginTop: "20px" }}>
                     <Column>
-                        <Title>Fazer</Title>
+                        <Title>Tarefas</Title>
                         <Scrollbar style={{ width: "100%", height: "100%" }}>
                             <TaskTable onDelete={onDeleteTask} onEdit={onEditTask} tasks={tasks} />
                         </Scrollbar>
                         {isModalVisible ? <ModalTask onCloseModal={() => setIsModalVisible(false)} /> : null}
                     </Column>
-                    <Column>
+                    {/* <Column>
                         <Title>Andamento</Title>
                         <Scrollbar style={{ width: "100%", height: "100%" }}>
 
@@ -91,7 +91,7 @@ export function TaskPage() {
                         <Title>Feito</Title>
                         <Scrollbar style={{ width: "100%", height: "100%" }}>
                         </Scrollbar>
-                    </Column>
+                    </Column> */}
 
                 </div >
                 <div style={{ display: "flex", flexDirection: "column" }}>

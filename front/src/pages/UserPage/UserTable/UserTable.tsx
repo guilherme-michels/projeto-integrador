@@ -1,12 +1,12 @@
 import { Table, Thead, Tbody, Tr, Th, Td, Input } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { AiFillDelete, AiFillFilePdf } from 'react-icons/ai'
+import { AiFillDelete } from 'react-icons/ai'
 import { MdModeEditOutline } from 'react-icons/md'
 import { ModalDelete } from '../../../components/ModalDelete/ModalDelete'
 import { User } from '../UserInterface'
 
-import * as pdfMake from 'pdfmake/build/pdfmake'
-import * as pdfFonts from 'pdfmake/build/vfs_fonts'
+// import * as pdfMake from 'pdfmake/build/pdfmake'
+// import * as pdfFonts from 'pdfmake/build/vfs_fonts'
 interface UserTableProps {
   users: Array<User>
   onEdit: (user: User) => void
@@ -26,31 +26,31 @@ export const UserTable: React.FunctionComponent<UserTableProps> = props => {
       user.email.toLowerCase().includes(filter.toLowerCase())
     )
 
-  function gerarPDF() {
-    ;(pdfMake as any).vfs = pdfFonts.pdfMake.vfs
-    pdfMake
-      .createPdf({
-        pageSize: 'A4',
-        pageMargins: [20, 20, 20, 20],
-        content: [
-          {
-            table: {
-              headerRows: 1,
-              body: [
-                ['Nome', 'Cargo', 'Telefone', 'E-mail'],
-                ...userFilter.map(user => [
-                  user.name,
-                  user.cargo,
-                  user.telefone,
-                  user.email,
-                ]),
-              ],
-            },
-          },
-        ],
-      })
-      .download()
-  }
+  // function gerarPDF() {
+  //   ;(pdfMake as any).vfs = pdfFonts.pdfMake.vfs
+  //   pdfMake
+  //     .createPdf({
+  //       pageSize: 'A4',
+  //       pageMargins: [20, 20, 20, 20],
+  //       content: [
+  //         {
+  //           table: {
+  //             headerRows: 1,
+  //             body: [
+  //               ['Nome', 'Cargo', 'Telefone', 'E-mail'],
+  //               ...userFilter.map(user => [
+  //                 user.name,
+  //                 user.cargo,
+  //                 user.telefone,
+  //                 user.email,
+  //               ]),
+  //             ],
+  //           },
+  //         },
+  //       ],
+  //     })
+  //     .download()
+  // }
 
   return (
     <>
@@ -138,7 +138,7 @@ export const UserTable: React.FunctionComponent<UserTableProps> = props => {
           />
         ) : null}
       </Table>
-      <button onClick={() => gerarPDF()} style={{ marginTop: '6px' }}>
+      {/* <button onClick={() => gerarPDF()} style={{ marginTop: '6px' }}>
         <span
           style={{
             display: 'flex',
@@ -150,7 +150,7 @@ export const UserTable: React.FunctionComponent<UserTableProps> = props => {
         >
           Relatório <AiFillFilePdf size={24} style={{ marginLeft: '12px' }} />
         </span>
-      </button>
+      </button> */}
     </>
   )
 }

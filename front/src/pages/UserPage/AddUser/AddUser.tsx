@@ -51,7 +51,6 @@ export function AddUser() {
   return (
     <SidebarHeaderTeamplate>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>Cadastro de usuários</div>
         <div style={{ display: 'flex' }}>
           <FormControl isInvalid={errors.name} style={{ padding: '10px 10px' }}>
             <FormLabel htmlFor="name">Nome</FormLabel>
@@ -110,13 +109,13 @@ export function AddUser() {
               placeholder="Insira o cargo"
               {...register('cargo')}
             >
-              <option value="Administrador" style={{ color: '#DF6064' }}>
+              <option value="Admin" style={{ color: '#000' }}>
                 Admin
               </option>
-              <option value="Desenvolvedor" style={{ color: '#DF6064' }}>
+              <option value="Developer" style={{ color: '#000' }}>
                 Developer
               </option>
-              <option value="Analista" style={{ color: '#DF6064' }}>
+              <option value="Analyst" style={{ color: '#000' }}>
                 Analyst
               </option>
             </Select>
@@ -135,6 +134,7 @@ export function AddUser() {
             <Input
               id="password"
               placeholder="Insira a senha"
+              type="password"
               {...register('password')}
             />
             <FormErrorMessage>
@@ -149,7 +149,7 @@ export function AddUser() {
               mt={4}
               colorScheme="teal"
               type="submit"
-              style={{ marginLeft: '10px', background: '#DF6064' }}
+              style={{ marginLeft: '10px', background: '#783E76' }}
             >
               Cancelar
             </Button>
@@ -159,7 +159,7 @@ export function AddUser() {
             colorScheme="teal"
             isLoading={isSubmitting}
             type="submit"
-            style={{ marginLeft: '10px', background: '#DF6064' }}
+            style={{ marginLeft: '10px', background: '#783E76' }}
           >
             Cadastrar
           </Button>

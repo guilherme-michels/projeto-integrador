@@ -17,8 +17,8 @@ interface LinkItemProps {
   path: String
 }
 const LinkItems: LinkItemProps[] = [
-  { name: 'Home', icon: FiHome, path: '/' },
-  { name: 'Usuários', icon: FiUser, path: '/tasker/user' },
+  { name: 'Menu', icon: FiHome, path: '/' },
+  { name: 'Usuarios', icon: FiUser, path: '/tasker/user' },
   { name: 'Tarefas', icon: FiArchive, path: '/tasker/tasks' },
 ]
 

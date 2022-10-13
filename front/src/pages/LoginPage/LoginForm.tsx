@@ -25,7 +25,6 @@ export const LoginForm: React.FunctionComponent = props => {
 
   async function onLoginUser(values: any) {
     try {
-      console.log(values)
       signIn(values)
     } catch (err) {
       console.log(err)
@@ -64,7 +63,7 @@ export const LoginForm: React.FunctionComponent = props => {
             padding: '100px',
           }}
         >
-          <strong style={{ fontSize: '60px' }}>
+          <strong style={{ fontSize: '60px', color: '#fff' }}>
             Welcome <br />
             Tabbleffy
           </strong>
@@ -84,8 +83,15 @@ export const LoginForm: React.FunctionComponent = props => {
                 isInvalid={errors.email}
                 style={{ padding: '10px 10px' }}
               >
-                <FormLabel htmlFor="email">Email</FormLabel>
-                <Input id="email" placeholder="Email" {...register('email')} />
+                <FormLabel htmlFor="email" style={{ color: '#fff' }}>
+                  Email
+                </FormLabel>
+                <Input
+                  id="email"
+                  placeholder="Email"
+                  {...register('email')}
+                  style={{ color: '#fff' }}
+                />
                 <FormErrorMessage>
                   {errors.email && errors.email.message}
                 </FormErrorMessage>
@@ -95,12 +101,15 @@ export const LoginForm: React.FunctionComponent = props => {
                 isInvalid={errors.password}
                 style={{ padding: '10px 10px' }}
               >
-                <FormLabel htmlFor="password">Password</FormLabel>
+                <FormLabel htmlFor="password" style={{ color: '#fff' }}>
+                  Password
+                </FormLabel>
                 <Input
                   type="password"
                   id="password"
-                  placeholder="password"
+                  placeholder="Password"
                   {...register('password')}
+                  style={{ color: '#fff' }}
                 />
                 <FormErrorMessage>
                   {errors.password && errors.name.password}
@@ -117,7 +126,7 @@ export const LoginForm: React.FunctionComponent = props => {
                 type="submit"
                 style={{ marginLeft: '10px', background: '#ae5bae' }}
               >
-                Login
+                Entrar
               </Button>
             </div>
           </div>

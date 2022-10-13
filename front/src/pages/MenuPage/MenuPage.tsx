@@ -10,39 +10,39 @@ export function MenuPage() {
   const horario = +data
   const [mensagem, setMensagem] = useState('')
   const semana = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
+    'Domingo',
+    'Segunda-feira',
+    'Terça-feira',
+    'Quarta-feira',
+    'Quinta-feira',
+    'Sexta-feira ',
+    'Sábado',
   ]
   const mes = [
-    'January',
-    'January',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro',
   ]
   const dia = new Date()
 
   function saudacao() {
     if (horario >= 0 && horario <= 5) {
-      setMensagem('Good Night!')
+      setMensagem('Boa noite!')
     } else if (horario >= 6 && horario < 12) {
-      setMensagem('Good Moorning!')
+      setMensagem('Bom dia!')
     } else if (horario >= 12 && horario < 18) {
-      setMensagem('Good Afternoon!')
+      setMensagem('Boa tarde!')
     } else if (horario >= 18 && horario <= 23) {
-      setMensagem('Good Night!')
+      setMensagem('Boa noite!')
     }
   }
 
@@ -63,7 +63,7 @@ export function MenuPage() {
             }}
           >
             <div style={{ fontSize: '20px', color: '#000' }}>
-              {semana[dia.getDay()]}, {dia.getDate()}th {mes[dia.getMonth()]}
+              {semana[dia.getDay()]}, {dia.getDate()} {mes[dia.getMonth()]}
             </div>
             <div
               style={{ fontSize: '36px', color: '#000', fontWeight: 'bold' }}
@@ -89,7 +89,7 @@ export function MenuPage() {
                 color: '#000',
               }}
             >
-              Tasks to do
+              Tarefas a fazer
               <hr
                 style={{
                   width: '100%',
@@ -107,7 +107,7 @@ export function MenuPage() {
                 borderRadius: '8px',
               }}
             >
-              <strong style={{ color: '#000' }}>Lists</strong>
+              <strong style={{ color: '#000' }}>Listas</strong>
               <hr
                 style={{
                   width: '100%',
@@ -122,7 +122,7 @@ export function MenuPage() {
                   color: '#000',
                 }}
               >
-                <Link to="/mytasks">Tasks list</Link>
+                <Link to="/tasker/tasks">Lista de tarefas</Link>
               </div>
             </div>
           </div>

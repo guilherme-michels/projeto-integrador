@@ -16,7 +16,7 @@ import {
   MenuList,
 } from '@chakra-ui/react'
 
-import { FiMenu, FiBell, FiChevronDown } from 'react-icons/fi'
+import { FiMenu, FiChevronDown } from 'react-icons/fi'
 import { useAuth } from '../../context/AuthContext'
 
 interface MobileProps extends FlexProps {
@@ -54,13 +54,6 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       ></Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
-        <IconButton
-          size="lg"
-          variant="ghost"
-          aria-label="open menu"
-          icon={<FiBell />}
-          style={{ background: '#DF6064' }}
-        />
         <Flex alignItems={'center'}>
           <Menu>
             <MenuButton
@@ -88,11 +81,11 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               </HStack>
             </MenuButton>
             <MenuList
-              bg={useColorModeValue('#fffff', 'gray.900')}
+              bg={useColorModeValue('#fff', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}
             >
               <MenuItem style={{ color: '#000' }}>Conta</MenuItem>
-              <MenuItem style={{ color: '#000' }}>Configurações</MenuItem>
+              <MenuItem style={{ color: '#000' }}>Configuracoes</MenuItem>
               <MenuDivider />
               <MenuItem style={{ color: '#000' }} onClick={signOut}>
                 Desconectar

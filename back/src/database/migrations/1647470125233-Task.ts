@@ -19,12 +19,17 @@ export class Task1647470125233 implements MigrationInterface {
             name: 'description',
             type: 'varchar',
           },
+
           {
-            name: 'responsible',
+            name: 'color',
             type: 'varchar',
           },
           {
-            name: 'color',
+            name: 'person_id',
+            type: 'varchar',
+          },
+          {
+            name: 'status',
             type: 'varchar',
           },
         ],

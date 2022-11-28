@@ -1,16 +1,18 @@
 import React from 'react'
-import { Task } from '../TaskInterface'
+import { TaskResponse } from '../TaskInterface'
 import styled from 'styled-components'
 import { MdModeEditOutline } from 'react-icons/md'
 import { AiFillDelete } from 'react-icons/ai'
+import { User } from '../../UserPage/UserInterface'
 
 // import * as pdfMake from 'pdfmake/build/pdfmake'
 // import * as pdfFonts from 'pdfmake/build/vfs_fonts'
 
 interface TaskTableProps {
-  tasks: Array<Task>
-  onEdit: (task: Task) => void
-  onDelete: (task: Task) => void
+  tasks: Array<TaskResponse>
+  onEdit: (task: TaskResponse) => void
+  onDelete: (task: TaskResponse) => void
+  pessoas: Array<User>
 }
 
 const TaskBody = styled.div`
@@ -43,7 +45,6 @@ export const TaskTable: React.FunctionComponent<TaskTableProps> = props => {
   //                 ['Nome', 'Responsável', 'Descrição'],
   //                 ...props.tasks.map(task => [
   //                   task.name,
-  //                   task.responsible,
   //                   task.description,
   //                 ]),
   //               ],
@@ -76,14 +77,14 @@ export const TaskTable: React.FunctionComponent<TaskTableProps> = props => {
                 }}
               >
                 <span style={{ marginBottom: '10px' }}>{task.name}</span>
-                <span> {task.responsible}</span>
+                <span>Tarefa: {task.description}</span>
                 <hr
                   style={{
                     width: '100%',
                   }}
                 />
                 <span style={{ fontSize: '14px', marginTop: '10px' }}>
-                  Tarefa: {task.description}
+                  Responsável: {task.person.name}
                 </span>
                 <div style={{ display: 'flex', marginTop: '10px' }}>
                   <MdModeEditOutline

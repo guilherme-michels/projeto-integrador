@@ -4,10 +4,12 @@ import styled from 'styled-components'
 import { Scrollbar } from 'react-scrollbars-custom'
 import { ModalTask } from '../../components/TaskComponents/ModalTask/ModalTask'
 import { TaskTable } from './TaskTable/TaskTable'
-import { Task } from './TaskInterface'
+import { TaskResponse } from './TaskInterface'
 import { useToast } from '@chakra-ui/react'
 import { deleteTask, getTasks } from '../../api/Task/task.service'
 import { SidebarHeaderTeamplate } from '../../templates/SidebarHeaderTeamplate'
+import { User } from '../UserPage/UserInterface'
+import { getUsers } from '../../api/User/user.service'
 
 const Column = styled.div`
   width: 30%;
@@ -23,23 +25,25 @@ const Title = styled.strong`
 `
 
 export function TaskPage() {
-  const [tasks, setTasks] = useState<Task[]>([])
+  const [tasks, setTasks] = useState<TaskResponse[]>([])
   const navigate = useNavigate()
   const toast = useToast()
+  const [pessoas, setPessoas] = useState<User[]>([])
 
   const fetchTasks = () => {
     getTasks().then(data => setTasks(data.taskList))
+    getUsers().then(data => setPessoas(data.personList))
   }
 
   useEffect(() => {
     fetchTasks()
   }, [])
 
-  const onEditTask = (task: Task) => {
+  const onEditTask = (task: TaskResponse) => {
     navigate(`/tasker/editar-task/${task.id}`)
   }
 
-  const onDeleteTask = async (task: Task) => {
+  const onDeleteTask = async (task: TaskResponse) => {
     try {
       await deleteTask(task)
       toast({
@@ -66,7 +70,7 @@ export function TaskPage() {
   return (
     <SidebarHeaderTeamplate>
       <div>
-        <div style={{ display: 'flex', marginTop: '20px' }}>
+        <div style={{ display: 'flex' }}>
           <Column>
             <Title>Tarefas</Title>
             <Scrollbar style={{ width: '100%', height: '100%' }}>
@@ -74,6 +78,7 @@ export function TaskPage() {
                 onDelete={onDeleteTask}
                 onEdit={onEditTask}
                 tasks={tasks}
+                pessoas={pessoas}
               />
             </Scrollbar>
             {isModalVisible ? (

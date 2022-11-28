@@ -20,10 +20,10 @@ class TaskController {
 
   store = async (request: Request, response: Response) => {
     try {
-      const { name, description, responsible, color } = request.body;
+      const { name, description, color, person_id, status } = request.body;
 
       const taskService = new TaskService();
-      const task = await taskService.store(name, description, responsible, color);
+      const task = await taskService.store(name, description, color, person_id, status);
 
       return response.status(200).json({
         message: 'Tarefa criada com sucesso.',
@@ -63,11 +63,11 @@ class TaskController {
   update = async (request: Request, response: Response) => {
     try {
       const { id } = request.params;
-      const { name, description, responsible, color } = request.body;
+      const { name, description, color, person_id, status } = request.body;
 
       const taskService = new TaskService();
 
-      const task = await taskService.update(id, name, description, responsible, color);
+      const task = await taskService.update(id, name, description, color, person_id, status);
 
       if (!task) {
         return response.status(404).json({

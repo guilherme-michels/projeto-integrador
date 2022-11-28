@@ -7,14 +7,17 @@ import {
   Button,
   Textarea,
   useToast,
+  Select,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { userSchema } from './userSchema'
 import { Link, useNavigate } from 'react-router-dom'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { addTask } from '../../../api/Task/task.service'
 import { SidebarHeaderTeamplate } from '../../../templates/SidebarHeaderTeamplate'
+import { User } from '../../UserPage/UserInterface'
+import { getUsers } from '../../../api/User/user.service'
 
 export function AddTask() {
   const {
@@ -27,6 +30,15 @@ export function AddTask() {
 
   const navigate = useNavigate()
   const toast = useToast()
+  const [pessoas, setPessoas] = useState<User[]>([])
+
+  const fetchUsers = () => {
+    getUsers().then(data => setPessoas(data.personList))
+  }
+
+  useEffect(() => {
+    fetchUsers()
+  }, [])
 
   async function onSubmit(values: any) {
     try {
@@ -86,17 +98,19 @@ export function AddTask() {
         </div>
 
         <div style={{ display: 'flex' }}>
-          <FormControl
-            isInvalid={errors.responsible}
-            style={{ padding: '10px 10px' }}
-          >
-            <FormLabel htmlFor="responsible">Responsável</FormLabel>
-            <Input
-              id="responsible"
-              type="text"
-              placeholder="Insira o responsável"
-              {...register('responsible')}
-            />
+          <FormControl style={{ padding: '10px 10px' }} isInvalid={errors.user}>
+            <FormLabel htmlFor="person_id">Usuário vinculado</FormLabel>
+
+            <Select
+              placeholder="Selecione o usuário vinculado"
+              style={{ background: '#fff' }}
+              {...register('person_id')}
+              id="person_id"
+            >
+              {pessoas.map(pessoa => (
+                <option value={pessoa.id}>{pessoa.name}</option>
+              ))}
+            </Select>
             <FormErrorMessage>
               {errors.description && errors.description.message}
             </FormErrorMessage>
@@ -104,7 +118,7 @@ export function AddTask() {
         </div>
 
         <FormControl style={{ padding: '10px 10px' }}>
-          <FormLabel htmlFor="responsible">Selecione uma cor</FormLabel>
+          <FormLabel htmlFor="color">Selecione uma cor</FormLabel>
           <Input
             style={{ border: 'none', width: '70px' }}
             id="color"

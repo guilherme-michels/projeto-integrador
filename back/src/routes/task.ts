@@ -15,8 +15,9 @@ router.post(
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string().required(),
       description: Joi.string(),
-      responsible: Joi.string().required(),
       color: Joi.string().required(),
+      person_id: Joi.string().required(),
+      status: Joi.string().required(),
     }),
   }),
   taskController.store,

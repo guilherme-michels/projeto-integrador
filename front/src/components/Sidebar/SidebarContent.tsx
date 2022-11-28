@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Box,
   CloseButton,
@@ -10,6 +9,7 @@ import {
 import { NavItem } from './NavItem'
 import { FiHome, FiArchive, FiUser } from 'react-icons/fi'
 import { IconType } from 'react-icons'
+import logoImg from '../../../assets/logo.png'
 
 interface LinkItemProps {
   name: string
@@ -40,13 +40,15 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text
-          fontSize="34px"
+          fontSize="26px"
           fontFamily="monospace"
           fontWeight="bold"
           color="#fff"
         >
           Tabblefy
         </Text>
+        <img src={logoImg} alt="logoImg" width={38} />
+
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map(link => (

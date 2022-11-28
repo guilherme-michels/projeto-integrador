@@ -17,9 +17,6 @@ import { SidebarHeaderTeamplate } from '../../../templates/SidebarHeaderTeamplat
 
 export function EditUser() {
   const params = useParams()
-
-  console.log(params.id)
-
   const {
     handleSubmit,
     register,

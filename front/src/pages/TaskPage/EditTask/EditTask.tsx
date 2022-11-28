@@ -7,13 +7,16 @@ import {
   Button,
   Textarea,
   useToast,
+  Select,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { userSchema } from './userSchema'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { editTask, getTask } from '../../../api/Task/task.service'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { SidebarHeaderTeamplate } from '../../../templates/SidebarHeaderTeamplate'
+import { User } from '../../UserPage/UserInterface'
+import { getUsers } from '../../../api/User/user.service'
 
 export function EditTask() {
   const {
@@ -28,6 +31,16 @@ export function EditTask() {
   const navigate = useNavigate()
   const toast = useToast()
   const params = useParams()
+
+  const [pessoas, setPessoas] = useState<User[]>([])
+
+  const fetchUsers = () => {
+    getUsers().then(data => setPessoas(data.personList))
+  }
+
+  useEffect(() => {
+    fetchUsers()
+  }, [])
 
   async function onSubmit(values: any) {
     try {
@@ -53,9 +66,8 @@ export function EditTask() {
 
   useEffect(() => {
     getTask(params.id as any).then(res => {
-      setValue('name', res.task.name)
-      setValue('description', res.task.description)
-      setValue('responsible', res.task.responsible)
+      setValue('name', res.name)
+      setValue('description', res.description)
     })
   }, [params])
 
@@ -94,30 +106,34 @@ export function EditTask() {
         </div>
 
         <div style={{ display: 'flex' }}>
-          <FormControl
-            isInvalid={errors.responsible}
-            style={{ padding: '10px 10px' }}
-          >
-            <FormLabel htmlFor="responsible">Responsável</FormLabel>
-            <Input
-              id="responsible"
-              type="text"
-              placeholder="Insira o responsável"
-              {...register('responsible')}
-            />
+          <FormControl style={{ padding: '10px 10px' }} isInvalid={errors.user}>
+            <FormLabel htmlFor="pessoa_id">Usuário vinculado</FormLabel>
+
+            <Select
+              placeholder="Selecione o usuário vinculado"
+              style={{ background: '#fff' }}
+              {...register('pessoa_id')}
+              id="pessoa_id"
+            >
+              {pessoas.map(pessoa => (
+                <option value={pessoa.id}>{pessoa.name}</option>
+              ))}
+            </Select>
             <FormErrorMessage>
               {errors.description && errors.description.message}
             </FormErrorMessage>
           </FormControl>
         </div>
 
-        {/* <FormControl style={{ padding: "10px 10px" }}>
-                <FormLabel>Selecione uma cor</FormLabel>
-                <CirclePicker
-                    color={color}
-                    onChangeComplete={(color) => setColor(color.hex)}
-                />
-            </FormControl> */}
+        <FormControl style={{ padding: '10px 10px' }}>
+          <FormLabel htmlFor="color">Selecione uma cor</FormLabel>
+          <Input
+            style={{ border: 'none', width: '70px' }}
+            id="color"
+            type="color"
+            {...register('color')}
+          />
+        </FormControl>
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Link to="/tasker/tasks">

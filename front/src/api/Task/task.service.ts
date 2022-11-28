@@ -1,33 +1,28 @@
 import { Api } from '..'
-import { Task } from '../../pages/TaskPage/TaskInterface'
+import { TaskRequest, TaskResponse } from '../../pages/TaskPage/TaskInterface'
 
-interface TaskResponse {
-  task: Task
-  message: string
-}
-
-export function addTask(Task: Task) {
-  return Api.post<TaskResponse>('/tasks/store', Task).then(res => res.data)
-}
-
-interface TasksResponse {
-  taskList: Task[]
-  message: string
+export function addTask(Task: TaskRequest) {
+  return Api.post<{ taskList: TaskResponse; message: string }>(
+    '/tasks/store',
+    Task
+  ).then(res => res.data)
 }
 
 export function getTasks() {
-  return Api.get<TasksResponse>(`/tasks`).then(res => res.data)
+  return Api.get<{ taskList: TaskResponse[]; message: string }>(`/tasks`).then(
+    res => res.data
+  )
 }
 
 export function getTask(taskId: string) {
   return Api.get<TaskResponse>(`/tasks/${taskId}/show`).then(res => res.data)
 }
 
-export function editTask(Task: Task) {
+export function editTask(Task: TaskResponse) {
   return Api.put(`/tasks/${Task.id}/update`, Task).then(res => res.data)
 }
 
-export function deleteTask(task: Task) {
+export function deleteTask(task: TaskResponse) {
   return Api.delete<TaskResponse>(`/tasks/${task.id}/delete`).then(
     res => res.data
   )

@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { Person } from './Person';
 
 @Entity('task')
 class Task {
@@ -13,10 +14,14 @@ class Task {
   description: string;
 
   @Column()
-  responsible: string;
+  color: string;
+
+  @OneToOne(() => Person)
+  @JoinColumn({ name: 'person_id' })
+  person: Person;
 
   @Column()
-  color: string;
+  status: string;
 
   constructor() {
     if (!this.id) {

@@ -10,7 +10,7 @@ import {
   Select,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { userSchema } from './userSchema'
+import { taskSchema } from './taskSchema'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { editTask, getTask } from '../../../api/Task/task.service'
 import { useEffect, useState } from 'react'
@@ -25,7 +25,7 @@ export function EditTask() {
     formState: { errors, isSubmitting },
     setValue,
   } = useForm({
-    resolver: yupResolver(userSchema),
+    resolver: yupResolver(taskSchema),
   })
 
   const navigate = useNavigate()

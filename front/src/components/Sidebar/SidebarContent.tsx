@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react'
 import { NavItem } from './NavItem'
 import { FiHome, FiArchive, FiUser } from 'react-icons/fi'
+import { AiFillProject, AiOutlineTeam } from 'react-icons/ai'
 import { IconType } from 'react-icons'
 import logoImg from '../../../assets/logo.png'
 
@@ -20,6 +21,8 @@ const LinkItems: LinkItemProps[] = [
   { name: 'Menu', icon: FiHome, path: '/' },
   { name: 'Usuarios', icon: FiUser, path: '/tasker/user' },
   { name: 'Tarefas', icon: FiArchive, path: '/tasker/tasks' },
+  { name: 'Projetos', icon: AiFillProject, path: '/tasker/projects' },
+  { name: 'Times', icon: AiOutlineTeam, path: '/tasker/teams' },
 ]
 
 interface SidebarProps extends BoxProps {

@@ -123,6 +123,9 @@ export function MenuPage() {
                 }}
               >
                 <Link to="/tasker/tasks">Lista de tarefas</Link>
+                <Link to="/tasker/user">Lista de usuarios</Link>
+                <Link to="/tasker/projects">Lista de projetos</Link>
+                <Link to="/tasker/teams">Lista de times</Link>
               </div>
             </div>
           </div>

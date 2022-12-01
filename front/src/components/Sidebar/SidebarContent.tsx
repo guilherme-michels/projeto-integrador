@@ -11,17 +11,21 @@ import { FiHome, FiArchive, FiUser } from 'react-icons/fi'
 import { AiFillProject, AiOutlineTeam } from 'react-icons/ai'
 import { IconType } from 'react-icons'
 import logoImg from '../../../assets/logo.png'
+import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu'
+import { getProjects } from '../../api/Project/project.service'
+import { useEffect, useState } from 'react'
+import { Project } from '../../pages/ProjectPage/ProjectInterface'
 
 interface LinkItemProps {
   name: string
   icon: IconType
   path: String
 }
+
 const LinkItems: LinkItemProps[] = [
   { name: 'Menu', icon: FiHome, path: '/' },
   { name: 'Usuarios', icon: FiUser, path: '/tasker/user' },
   { name: 'Tarefas', icon: FiArchive, path: '/tasker/tasks' },
-  { name: 'Projetos', icon: AiFillProject, path: '/tasker/projects' },
   { name: 'Times', icon: AiOutlineTeam, path: '/tasker/teams' },
 ]
 
@@ -30,6 +34,12 @@ interface SidebarProps extends BoxProps {
 }
 
 export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const [projects, setProjects] = useState<Project[]>([])
+
+  useEffect(() => {
+    getProjects().then(data => setProjects(data.projectList))
+  }, [])
+
   return (
     <Box
       transition="3s ease"
@@ -59,6 +69,27 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           {link.name}
         </NavItem>
       ))}
+      <Menu
+        menuButton={
+          <MenuButton style={{ width: '100%' }}>
+            <NavItem key="Projeto" path="" icon={AiFillProject}>
+              Projetos
+            </NavItem>
+          </MenuButton>
+        }
+      >
+        {projects.map(project => (
+          <MenuItem style={{ width: '240px', opacity: '0.6' }}>
+            <NavItem
+              key="Projeto"
+              path={'/tasker/project/' + project.id}
+              icon={AiFillProject}
+            >
+              {project.name}
+            </NavItem>
+          </MenuItem>
+        ))}
+      </Menu>
     </Box>
   )
 }

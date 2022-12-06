@@ -63,7 +63,7 @@ export function EditUser() {
   return (
     <SidebarHeaderTeamplate>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>Editar {{}}</div>
+        <div>Editar</div>
         <div style={{ display: 'flex' }}>
           <FormControl isInvalid={errors.name} style={{ padding: '10px 10px' }}>
             <FormLabel htmlFor="name">Nome</FormLabel>

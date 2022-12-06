@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { Person } from './Person';
+import { Project } from './Project';
 
 @Entity('task')
 class Task {
@@ -15,6 +16,9 @@ class Task {
 
   @Column()
   color: string;
+
+  @ManyToOne(() => Project, (project) => project.tasks)
+  project: Project;
 
   @OneToOne(() => Person)
   @JoinColumn({ name: 'person_id' })

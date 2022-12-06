@@ -5,6 +5,7 @@ import { LoginForm } from './pages/LoginPage/LoginForm'
 import { AddProject } from './pages/ProjectPage/AddProject/AddProject'
 import { EditProject } from './pages/ProjectPage/EditProject/EditProject'
 import { ProjectsPage } from './pages/ProjectPage/ProjectsPage'
+import { ViewProject } from './pages/ProjectPage/ViewProject/ViewProject'
 import { AddTask } from './pages/TaskPage/AddTask/AddTask'
 import { EditTask } from './pages/TaskPage/EditTask/EditTask'
 import { AddTeam } from './pages/TeamPage/AddTeam/AddTeam'
@@ -32,7 +33,7 @@ export function AppRoutes() {
 
       <Route path="/tasker/projects" element={<ProjectsPage />} />
 
-      {/* <Route path="/tasker/project/:id" element={<ProjectPage />} /> */}
+      <Route path="/tasker/project/:id" element={<ViewProject />} />
 
       <Route path="/tasker/add-project" element={<AddProject />} />
 

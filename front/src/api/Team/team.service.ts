@@ -7,7 +7,7 @@ interface TeamResponse {
 }
 
 export function addTeam(team: Team) {
-  return Api.post<TeamResponse>('/tasks/store', team).then(res => res.data)
+  return Api.post<TeamResponse>('/teams/store', team).then(res => res.data)
 }
 
 interface TeamsResponse {
@@ -16,7 +16,7 @@ interface TeamsResponse {
 }
 
 export function getTeams() {
-  return Api.get<TeamsResponse>(`/tasks`).then(res => res.data)
+  return Api.get<TeamsResponse>(`/teams`).then(res => res.data)
 }
 
 export function getTeam(teamId: string) {

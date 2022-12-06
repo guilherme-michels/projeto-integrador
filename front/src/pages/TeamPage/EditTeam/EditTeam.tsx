@@ -52,7 +52,7 @@ export function EditTeam() {
 
   useEffect(() => {
     getTeam(params.id as any).then(res => {
-      setValue('team_name', res.team.teamName)
+      setValue('team_name', res.team.team_name)
       setValue('sector', res.team.sector)
     })
   }, [params])
@@ -60,7 +60,7 @@ export function EditTeam() {
   return (
     <SidebarHeaderTeamplate>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>Editar {{}}</div>
+        <div>Editar</div>
         <div style={{ display: 'flex' }}>
           <FormControl
             isInvalid={errors.team_name}

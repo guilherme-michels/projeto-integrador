@@ -27,9 +27,9 @@ export const TeamTable: React.FunctionComponent<TeamTableProps> = props => {
         <Tbody>
           {props.teams ? (
             props.teams.map(team => (
-              <Tr key={team.teamName}>
+              <Tr key={team.id}>
                 <Td style={{ padding: '8px', fontSize: '14px' }}>
-                  {team.teamName}
+                  {team.team_name}
                 </Td>
                 <Td style={{ padding: '8px', fontSize: '14px' }}>
                   {team.sector}
@@ -69,7 +69,7 @@ export const TeamTable: React.FunctionComponent<TeamTableProps> = props => {
         </Tbody>
         {isModalVisible && teamSelected ? (
           <ModalDelete
-            userName={teamSelected.teamName}
+            userName={teamSelected.team_name}
             onCloseModal={() => {
               setIsModalVisible(false)
               setTeamSelected(null)

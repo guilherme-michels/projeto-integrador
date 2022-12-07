@@ -29,6 +29,10 @@ export class Task1647470125233 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'project_id',
+            type: 'varchar',
+          },
+          {
             name: 'status',
             type: 'varchar',
           },

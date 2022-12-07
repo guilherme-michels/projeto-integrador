@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Scrollbar } from 'react-scrollbars-custom'
-import { ModalTask } from '../../components/TaskComponents/ModalTask/ModalTask'
 import { useToast } from '@chakra-ui/react'
 import { SidebarHeaderTeamplate } from '../../templates/SidebarHeaderTeamplate'
 import { Project } from './ProjectInterface'
@@ -59,8 +58,6 @@ export function ProjectsPage() {
     }
   }
 
-  const [isModalVisible, setIsModalVisible] = useState(false)
-
   return (
     <SidebarHeaderTeamplate>
       <div>
@@ -74,9 +71,6 @@ export function ProjectsPage() {
                 projects={projects}
               />
             </Scrollbar>
-            {isModalVisible ? (
-              <ModalTask onCloseModal={() => setIsModalVisible(false)} />
-            ) : null}
           </Column>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -87,16 +81,16 @@ export function ProjectsPage() {
             }}
           />
           <Link
-            to="/tasker/add-team"
+            to="/tasker/add-project"
             style={{
               padding: '10px',
               background: '#783E76',
               borderRadius: '8px',
-              width: '140px',
+              width: '160px',
               color: '#fff',
             }}
           >
-            Adicionar time
+            Adicionar projeto
           </Link>
         </div>
       </div>

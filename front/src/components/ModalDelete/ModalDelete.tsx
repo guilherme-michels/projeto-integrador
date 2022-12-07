@@ -28,10 +28,7 @@ export const ModalDelete = ({
       >
         <ModalOverlay />
         <ModalContent style={{ background: '#783E76', color: '#fff' }}>
-          <ModalHeader>
-            {' '}
-            Deseja excluir {userName} da lista de usuários?
-          </ModalHeader>
+          <ModalHeader> Deseja excluir {userName} da lista?</ModalHeader>
           <ModalFooter
             style={{ display: 'flex', justifyContent: 'space-between' }}
           >

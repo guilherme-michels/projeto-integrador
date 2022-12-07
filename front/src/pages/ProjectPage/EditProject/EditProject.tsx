@@ -52,14 +52,14 @@ export function EditProject() {
 
   useEffect(() => {
     getProject(params.id as any).then(res => {
-      setValue('nome', res.project.name)
+      setValue('name', res.project.name)
     })
   }, [params])
 
   return (
     <SidebarHeaderTeamplate>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>Editar {{}}</div>
+        <div>Editar</div>
         <div style={{ display: 'flex' }}>
           <FormControl isInvalid={errors.name} style={{ padding: '10px 10px' }}>
             <FormLabel htmlFor="name">Nome</FormLabel>

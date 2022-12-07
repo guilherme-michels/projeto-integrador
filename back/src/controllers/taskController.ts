@@ -5,7 +5,7 @@ class TaskController {
   index = async (request: Request, response: Response) => {
     try {
       const taskService = new TaskService();
-      const taskList = await taskService.showAll();
+      const taskList = await taskService.showAll(request.params.projectId);
 
       return response.status(200).json({
         message: 'Lista de tarefas obtidas com sucesso.',
@@ -20,10 +20,10 @@ class TaskController {
 
   store = async (request: Request, response: Response) => {
     try {
-      const { name, description, color, person_id, status } = request.body;
+      const { name, description, color, person_id, status, project_id } = request.body;
 
       const taskService = new TaskService();
-      const task = await taskService.store(name, description, color, person_id, status);
+      const task = await taskService.store(name, description, color, person_id, status, project_id);
 
       return response.status(200).json({
         message: 'Tarefa criada com sucesso.',
@@ -63,11 +63,11 @@ class TaskController {
   update = async (request: Request, response: Response) => {
     try {
       const { id } = request.params;
-      const { name, description, color, person_id, status } = request.body;
+      const { name, description, color, person_id, status, project_id } = request.body;
 
       const taskService = new TaskService();
 
-      const task = await taskService.update(id, name, description, color, person_id, status);
+      const task = await taskService.update(id, name, description, color, person_id, status, project_id);
 
       if (!task) {
         return response.status(404).json({

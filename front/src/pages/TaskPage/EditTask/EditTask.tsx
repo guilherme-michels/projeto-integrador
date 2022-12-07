@@ -19,6 +19,8 @@ import { User } from '../../UserPage/UserInterface'
 import { getUsers } from '../../../api/User/user.service'
 
 export function EditTask() {
+  const { id } = useParams<{ id: string }>()
+  const [projectId, setProjectId] = useState<string | null>(null)
   const {
     handleSubmit,
     register,
@@ -30,21 +32,16 @@ export function EditTask() {
 
   const navigate = useNavigate()
   const toast = useToast()
-  const params = useParams()
 
   const [pessoas, setPessoas] = useState<User[]>([])
 
-  const fetchUsers = () => {
-    getUsers().then(data => setPessoas(data.personList))
-  }
-
-  useEffect(() => {
-    fetchUsers()
-  }, [])
-
   async function onSubmit(values: any) {
     try {
-      const { message } = await editTask({ ...values, id: params.id })
+      const { message } = await editTask({
+        ...values,
+        id,
+        project_id: projectId,
+      })
       toast({
         position: 'top-right',
         description: message,
@@ -52,7 +49,7 @@ export function EditTask() {
         duration: 4000,
         isClosable: true,
       })
-      navigate('/tasker/tasks')
+      navigate(`/tasker/project/${projectId}`)
     } catch (err) {
       toast({
         position: 'top-right',
@@ -65,11 +62,20 @@ export function EditTask() {
   }
 
   useEffect(() => {
-    getTask(params.id as any).then(res => {
-      setValue('name', res.name)
-      setValue('description', res.description)
-    })
-  }, [params])
+    if (id) {
+      getTask(id).then(({ task }) => {
+        console.log('task', task)
+        setProjectId(task.projectId)
+        setValue('status', task.status)
+        setValue('person_id', task.person.id)
+        setValue('name', task.name)
+        setValue('description', task.description)
+        setValue('color', task.color)
+      })
+    }
+
+    getUsers().then(data => setPessoas(data.personList))
+  }, [id])
 
   return (
     <SidebarHeaderTeamplate>
@@ -107,17 +113,37 @@ export function EditTask() {
 
         <div style={{ display: 'flex' }}>
           <FormControl style={{ padding: '10px 10px' }} isInvalid={errors.user}>
-            <FormLabel htmlFor="pessoa_id">Usuário vinculado</FormLabel>
+            <FormLabel htmlFor="person_id">Usuário vinculado</FormLabel>
 
             <Select
               placeholder="Selecione o usuário vinculado"
               style={{ background: '#fff' }}
-              {...register('pessoa_id')}
-              id="pessoa_id"
+              {...register('person_id')}
+              id="person_id"
             >
               {pessoas.map(pessoa => (
                 <option value={pessoa.id}>{pessoa.name}</option>
               ))}
+            </Select>
+            <FormErrorMessage>
+              {errors.description && errors.description.message}
+            </FormErrorMessage>
+          </FormControl>
+        </div>
+
+        <div style={{ display: 'flex' }}>
+          <FormControl style={{ padding: '10px 10px' }} isInvalid={errors.user}>
+            <FormLabel htmlFor="status">Status da tarefa</FormLabel>
+
+            <Select
+              placeholder="Selecione o status da tarefa"
+              style={{ background: '#fff' }}
+              {...register('status')}
+              id="status"
+            >
+              <option value={'A fazer'}>A fazer</option>
+              <option value={'Em andamento'}>Em andamento</option>
+              <option value={'Finalizada'}>Finalizada</option>
             </Select>
             <FormErrorMessage>
               {errors.description && errors.description.message}
@@ -136,7 +162,7 @@ export function EditTask() {
         </FormControl>
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Link to="/tasker/tasks">
+          <Link to={`/tasker/project/${projectId}`}>
             <Button
               mt={4}
               colorScheme="teal"

@@ -7,7 +7,7 @@ const router = express.Router();
 
 const taskController = new TaskController();
 
-router.get('/tasks', taskController.index);
+router.get('/tasks/:projectId', taskController.index);
 
 router.post(
   '/tasks/store',
@@ -18,6 +18,7 @@ router.post(
       color: Joi.string().required(),
       person_id: Joi.string().required(),
       status: Joi.string().required(),
+      project_id: Joi.string().required(),
     }),
   }),
   taskController.store,
@@ -38,6 +39,15 @@ router.put(
   celebrate({
     [Segments.PARAMS]: Joi.object().keys({
       id: Joi.string().required(),
+    }),
+    [Segments.BODY]: Joi.object().keys({
+      id: Joi.string().required(),
+      name: Joi.string().required(),
+      description: Joi.string(),
+      color: Joi.string().required(),
+      person_id: Joi.string().required(),
+      status: Joi.string().required(),
+      project_id: Joi.string().required(),
     }),
   }),
   taskController.update,

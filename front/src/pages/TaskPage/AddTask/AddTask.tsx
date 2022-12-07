@@ -11,15 +11,20 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { taskSchema } from './taskSchema'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import React, { useEffect, useState } from 'react'
 import { addTask } from '../../../api/Task/task.service'
 import { SidebarHeaderTeamplate } from '../../../templates/SidebarHeaderTeamplate'
 import { User } from '../../UserPage/UserInterface'
 import { getUsers } from '../../../api/User/user.service'
+import { getProject } from '../../../api/Project/project.service'
+import { Project } from '../../ProjectPage/ProjectInterface'
 
 export function AddTask() {
+  const { projectId } = useParams<{ projectId: string }>()
+  const [project, setProject] = useState<Project | null>(null)
+
   const {
     handleSubmit,
     register,
@@ -37,13 +42,21 @@ export function AddTask() {
   }
 
   useEffect(() => {
+    if (projectId) {
+      getProject(projectId).then(response => setProject(response.project))
+    }
+
     fetchUsers()
   }, [])
 
   async function onSubmit(values: any) {
     try {
       console.log(values)
-      const { message } = await addTask(values)
+      const { message } = await addTask({
+        ...values,
+        project_id: projectId,
+        status: 'A fazer',
+      })
       toast({
         position: 'top-right',
         description: message,
@@ -51,7 +64,7 @@ export function AddTask() {
         duration: 4000,
         isClosable: true,
       })
-      navigate('/tasker/tasks')
+      navigate(`/tasker/project/${projectId}`)
     } catch (err) {
       toast({
         position: 'top-right',
@@ -66,7 +79,7 @@ export function AddTask() {
   return (
     <SidebarHeaderTeamplate>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>Cadastro de tarefas</div>
+        <div>Cadastrar tarefa em projeto {project?.name}</div>
         <div style={{ display: 'flex' }}>
           <FormControl isInvalid={errors.name} style={{ padding: '10px 10px' }}>
             <FormLabel htmlFor="name">Título</FormLabel>
@@ -128,7 +141,7 @@ export function AddTask() {
         </FormControl>
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Link to="/tasker/tasks">
+          <Link to={`/tasker/project/${projectId}`}>
             <Button
               mt={4}
               colorScheme="teal"
@@ -149,6 +162,8 @@ export function AddTask() {
           </Button>
         </div>
       </form>
+
+      <code>{JSON.stringify(errors, null, 2)}</code>
     </SidebarHeaderTeamplate>
   )
 }

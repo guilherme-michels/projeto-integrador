@@ -1,6 +1,6 @@
 import { Routes as ReactRoutes, Route } from 'react-router-dom'
 import { useAuth } from './context/AuthContext'
-import { MenuPage, TaskPage, UserPage } from './pages'
+import { MenuPage, UserPage } from './pages'
 import { LoginForm } from './pages/LoginPage/LoginForm'
 import { AddProject } from './pages/ProjectPage/AddProject/AddProject'
 import { EditProject } from './pages/ProjectPage/EditProject/EditProject'
@@ -8,9 +8,7 @@ import { ProjectsPage } from './pages/ProjectPage/ProjectsPage'
 import { ViewProject } from './pages/ProjectPage/ViewProject/ViewProject'
 import { AddTask } from './pages/TaskPage/AddTask/AddTask'
 import { EditTask } from './pages/TaskPage/EditTask/EditTask'
-import { AddTeam } from './pages/TeamPage/AddTeam/AddTeam'
-import { EditTeam } from './pages/TeamPage/EditTeam/EditTeam'
-import { TeamPage } from './pages/TeamPage/TeamPage'
+
 import { AddUser } from './pages/UserPage/AddUser/AddUser'
 import { EditUser } from './pages/UserPage/EditUser/EditUser'
 
@@ -25,9 +23,7 @@ export function AppRoutes() {
 
       <Route path="/tasker/editar-pessoa/:id" element={<EditUser />} />
 
-      <Route path="/tasker/tasks" element={<TaskPage />} />
-
-      <Route path="/tasker/add-task" element={<AddTask />} />
+      <Route path="/tasker/add-task/:projectId" element={<AddTask />} />
 
       <Route path="/tasker/editar-task/:id" element={<EditTask />} />
 
@@ -38,12 +34,6 @@ export function AppRoutes() {
       <Route path="/tasker/add-project" element={<AddProject />} />
 
       <Route path="/tasker/editar-project/:id" element={<EditProject />} />
-
-      <Route path="/tasker/teams" element={<TeamPage />} />
-
-      <Route path="/tasker/add-team" element={<AddTeam />} />
-
-      <Route path="/tasker/editar-team/:id" element={<EditTeam />} />
     </ReactRoutes>
   )
 }

@@ -5,4 +5,5 @@ export const taskSchema = yup.object({
   description: yup.string().required(),
   color: yup.string().required(),
   person_id: yup.string().required(),
+  status: yup.string(),
 })

@@ -1,13 +1,17 @@
 import { getCustomRepository } from 'typeorm';
 import { TaskRepository } from '../database/repositories/taskRepository';
 import PersonService from './person';
+import ProjectService from './project';
 
 class TaskService {
-  showAll = async () => {
+  showAll = async (projectId: string) => {
     const taskRepository = getCustomRepository(TaskRepository);
 
     const taskList = await taskRepository.find({
-      select: ['id', 'name', 'description', 'color', 'person', 'status'],
+      select: ['id', 'name', 'description', 'color', 'person', 'status', 'projectId'],
+      where: {
+        projectId,
+      },
       loadEagerRelations: true,
       relations: ['person'],
     });
@@ -24,6 +28,7 @@ class TaskService {
       name: string;
     },
     status: string,
+    projectId: string,
   ) => {
     const taskRepository = getCustomRepository(TaskRepository);
 
@@ -42,6 +47,7 @@ class TaskService {
         color,
         person,
         status,
+        projectId,
       });
 
       await taskRepository.save(task);
@@ -59,7 +65,7 @@ class TaskService {
       where: {
         id,
       },
-      select: ['id', 'name', 'description', 'color', 'person', 'status'],
+      select: ['id', 'name', 'description', 'color', 'person', 'status', 'projectId'],
       loadEagerRelations: true,
       relations: ['person'],
     });
@@ -69,14 +75,12 @@ class TaskService {
 
   update = async (
     id: string,
-    name?: string,
-    description?: string,
-    color?: string,
-    person?: {
-      id: string;
-      name: string;
-    },
-    status?: string,
+    name: string,
+    description: string,
+    color: string,
+    personId: string,
+    status: string,
+    projectId: string,
   ) => {
     const task = await this.showTask(id);
 
@@ -96,16 +100,23 @@ class TaskService {
       task.color = color;
     }
 
-    const personId = person.id;
-
-    if (personId) {
-      const person = await new PersonService().showPerson(personId);
-      task.person = person;
+    const person = await new PersonService().showPerson(personId);
+    if (person == null) {
+      throw new Error(`Person with id ${personId} was not found`);
     }
+
+    task.person = person;
 
     if (status) {
       task.status = status;
     }
+
+    const project = await new ProjectService().showProject(projectId);
+    if (project == null) {
+      throw new Error(`Project with id ${projectId} was not found`);
+    }
+
+    task.projectId = project.id;
 
     const taskRepository = getCustomRepository(TaskRepository);
     await taskRepository.save(task);

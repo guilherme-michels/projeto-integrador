@@ -1,18 +1,16 @@
 import React from 'react'
-import { TaskResponse } from '../TaskInterface'
+
 import styled from 'styled-components'
 import { MdModeEditOutline } from 'react-icons/md'
 import { AiFillDelete } from 'react-icons/ai'
-import { User } from '../../UserPage/UserInterface'
 
 // import * as pdfMake from 'pdfmake/build/pdfmake'
 // import * as pdfFonts from 'pdfmake/build/vfs_fonts'
 
 interface TaskTableProps {
-  tasks: Array<TaskResponse>
-  onEdit: (task: TaskResponse) => void
-  onDelete: (task: TaskResponse) => void
-  pessoas: Array<User>
+  tasks: Array<any>
+  onEdit: (task: any) => void
+  onDelete: (task: any) => void
 }
 
 const TaskBody = styled.div`

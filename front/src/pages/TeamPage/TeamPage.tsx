@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Scrollbar } from 'react-scrollbars-custom'
-import { ModalTask } from '../../components/TaskComponents/ModalTask/ModalTask'
 import { TeamTable } from './TeamTable/TeamTable'
 import { Team } from './TeamInterface'
 import { useToast } from '@chakra-ui/react'
@@ -59,8 +58,6 @@ export function TeamPage() {
     }
   }
 
-  const [isModalVisible, setIsModalVisible] = useState(false)
-
   return (
     <SidebarHeaderTeamplate>
       <div>
@@ -74,9 +71,6 @@ export function TeamPage() {
                 teams={teams}
               />
             </Scrollbar>
-            {isModalVisible ? (
-              <ModalTask onCloseModal={() => setIsModalVisible(false)} />
-            ) : null}
           </Column>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>

@@ -5,13 +5,19 @@ export interface TaskRequest {
   description: string
   id?: string
   color: string
-  personId: string
+  ['person_id']: string
+  ['project_id']: string
 }
 
 export interface TaskResponse {
-  name: string
-  description: string
-  id?: string
-  color: string
-  person: User
+  message: string
+  task: {
+    name: string
+    description: string
+    id?: string
+    color: string
+    person: User
+    projectId: string
+    status: string
+  }
 }

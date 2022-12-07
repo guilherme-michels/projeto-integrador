@@ -1,5 +1,5 @@
 import { useToast } from '@chakra-ui/react'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 // import { AiFillDelete } from 'react-icons/ai'
 // import { MdModeEditOutline } from 'react-icons/md'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -51,6 +51,25 @@ export const ViewProject: React.FunctionComponent = () => {
   const navigate = useNavigate()
   const toast = useToast()
 
+  const tasksAFazer = useMemo(() => {
+    if (!tasks) return []
+    return tasks.filter(task => {
+      return (task as any).status === 'A fazer'
+    })
+  }, [tasks])
+  const tasksEmAndamento = useMemo(() => {
+    if (!tasks) return []
+    return tasks.filter(task => {
+      return (task as any).status === 'Em andamento'
+    })
+  }, [tasks])
+  const tasksFinalizadas = useMemo(() => {
+    if (!tasks) return []
+    return tasks.filter(task => {
+      return (task as any).status === 'Finalizada'
+    })
+  }, [tasks])
+
   const fetchTasks = useCallback(async () => {
     if (id) {
       getTasks(id).then(data => {
@@ -96,14 +115,35 @@ export const ViewProject: React.FunctionComponent = () => {
   return (
     <SidebarHeaderTeamplate>
       <div>
+        <Title>Projeto {project?.name ?? '...'}</Title>
         <div style={{ display: 'flex' }}>
           <Column>
-            <Title>Projeto {project?.name ?? '...'}</Title>
+            <Title>A fazer</Title>
             <Scrollbar style={{ width: '100%', height: '100%' }}>
               <TaskTable
                 onDelete={onDeleteTask}
                 onEdit={onEditTask}
-                tasks={tasks}
+                tasks={tasksAFazer}
+              />
+            </Scrollbar>
+          </Column>
+          <Column>
+            <Title>Em andamento</Title>
+            <Scrollbar style={{ width: '100%', height: '100%' }}>
+              <TaskTable
+                onDelete={onDeleteTask}
+                onEdit={onEditTask}
+                tasks={tasksEmAndamento}
+              />
+            </Scrollbar>
+          </Column>
+          <Column>
+            <Title>Finalizadas</Title>
+            <Scrollbar style={{ width: '100%', height: '100%' }}>
+              <TaskTable
+                onDelete={onDeleteTask}
+                onEdit={onEditTask}
+                tasks={tasksFinalizadas}
               />
             </Scrollbar>
           </Column>

@@ -162,8 +162,6 @@ export function AddTask() {
           </Button>
         </div>
       </form>
-
-      <code>{JSON.stringify(errors, null, 2)}</code>
     </SidebarHeaderTeamplate>
   )
 }

@@ -122,7 +122,6 @@ export function MenuPage() {
                   color: '#000',
                 }}
               >
-                <Link to="/tasker/tasks">Lista de tarefas</Link>
                 <Link to="/tasker/user">Lista de usuarios</Link>
                 <Link to="/tasker/projects">Lista de projetos</Link>
               </div>
